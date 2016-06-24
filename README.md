@@ -6,6 +6,7 @@
 # node-instagram
 
 Instagram api client for node that support promises.
+
 To see all endpoint available take a look at [instagram developer documentation](https://www.instagram.com/developer/endpoints/).
 
 ## Install
