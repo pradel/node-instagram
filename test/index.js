@@ -100,8 +100,9 @@ describe('Instagram', () => {
     it('sould make post request', async () => {
       const endpoint = 'tag/sunset';
       nock('https://api.instagram.com')
-        .post(`/v1/${endpoint}`)
-        .query({ access_token: 'toto' })
+        .post(`/v1/${endpoint}`, {
+          access_token: 'toto',
+        })
         .reply(200, 'success');
       const result = await instagram.post(endpoint);
       assert.equal(result, 'success');

@@ -8,15 +8,19 @@ class Instagram {
   }
 
   request(type, endpoint, options = {}) {
+    let key = 'qs';
     let accessToken = this.accessToken;
     if (options.accessToken) {
       accessToken = options.accessToken;
       delete options.accessToken; // eslint-disable-line no-param-reassign
     }
+    if (type === 'POST') {
+      key = 'body';
+    }
     return rp({
       method: type,
       uri: `${this.baseApi}${endpoint}`,
-      qs: Object.assign({
+      [key]: Object.assign({
         access_token: accessToken,
       }, options),
       json: true,
