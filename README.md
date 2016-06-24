@@ -91,6 +91,21 @@ instagram.get('tags/paris').then((data) => {
   // An error occur
   console.log(err);
 });
+
+// Fake stream for instagram (running setInterval inside)
+// Streaming can be used on all endpoints taking MIN_TAG_ID as parameter
+const stream = instagram.stream('tags/:tag-name/media/recent');
+
+stream.on('messages', (messages) => {
+  console.log(messages);
+});
+
+// handle stream error
+stream.on('error', (err) => {
+  // An error occur
+  console.log(err);
+});
+
 ```
 
 ## Api
@@ -118,3 +133,12 @@ Make a DELETE request on endpoint
 ####Arguments
 * `endpoint` **string**
 * `params` **object**
+
+###`instagram.stram(endpoint, params)`
+Make a DELETE request on endpoint
+####Arguments
+* `endpoint` **string**
+* `params` **object**
+* `params.interval` **number** interval to run inside
+* `params.runOnCreation` **boolean** run the request when creating object
+* `params.minTagId` **boolean** instagram min_tag_id to start request
