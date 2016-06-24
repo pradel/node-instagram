@@ -135,7 +135,7 @@ Make a DELETE request on endpoint
 * `params` **object**
 
 ###`instagram.stram(endpoint, params)`
-Make a DELETE request on endpoint
+Start a fake stream to a endpoint and return new messages found
 ####Arguments
 * `endpoint` **string**
 * `params` **object**
