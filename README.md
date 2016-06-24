@@ -134,11 +134,11 @@ Make a DELETE request on endpoint
 * `endpoint` **string**
 * `params` **object**
 
-###`instagram.stram(endpoint, params)`
+###`instagram.stream(endpoint, params)`
 Start a fake stream to a endpoint and return new messages found
 ####Arguments
 * `endpoint` **string**
 * `params` **object**
-* `params.interval` **number** interval to run inside **default** 10000 
+* `params.interval` **number** interval to run inside **default** 10000
 * `params.runOnCreation` **boolean** run the request when creating object
 * `params.minTagId` **boolean** instagram min_tag_id to start request
