@@ -54,7 +54,7 @@ describe('Stream', () => {
       stream.stop();
     });
 
-    it('should make interval on makeRequest', function (done) {
+    it('should interval on makeRequest', function intervalOnMakeRequest(done) {
       this.timeout(3000);
       const stream = instagram.stream(endpoint, {
         runOnCreation: false,
@@ -76,7 +76,7 @@ describe('Stream', () => {
       assert.isFunction(stream.stop);
     });
 
-    it('should stop interval', function (done) {
+    it('should stop interval', function stopInterval(done) {
       this.timeout(5000);
       const stream = instagram.stream(endpoint, {
         runOnCreation: false,
@@ -119,7 +119,6 @@ describe('Stream', () => {
     });
 
     it('should return error event', (done) => {
-      const data = [{ id: 'a' }, { id: 'b' }];
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
