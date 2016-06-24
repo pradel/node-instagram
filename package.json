@@ -1,11 +1,12 @@
 {
   "name": "node-instagram",
-  "description": "Instagram api client",
+  "description": "Instagram api client for node that support promises",
   "version": "1.0.0",
   "author": "Leo Pradel",
   "keywords": [
     "instagram",
-    "api"
+    "api",
+    "node"
   ],
   "main": "lib/index.js",
   "scripts": {
