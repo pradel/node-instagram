@@ -1,4 +1,5 @@
 import rp from 'request-promise';
+import Stream from './stream';
 
 class Instagram {
   constructor(options = {}) {
@@ -39,6 +40,10 @@ class Instagram {
 
   delete(endpoint, options) {
     return this.request('DELETE', endpoint, options);
+  }
+
+  stream(endpoint, options) {
+    return new Stream(this, endpoint, options);
   }
 }
 
