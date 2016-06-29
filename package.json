@@ -1,7 +1,7 @@
 {
   "name": "node-instagram",
   "description": "Instagram api client for node that support promises",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "author": "Leo Pradel",
   "keywords": [
     "instagram",
