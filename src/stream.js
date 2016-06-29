@@ -1,6 +1,15 @@
 import EventEmitter from 'events';
 
 class Stream extends EventEmitter {
+  /**
+   * Create a new instance of stream class
+   * @param {Instagram} instagram
+   * @param {String}    endpoint
+   * @param {Object}    [options]
+   * @param {Boolean}   [options.runOnCreation]
+   * @param {Number}    [options.interval]
+   * @param {String}    [options.minTagId]
+   */
   constructor(instagram, endpoint, options = {}) {
     super();
     this.instagram = instagram;
@@ -16,12 +25,19 @@ class Stream extends EventEmitter {
     }
   }
 
+  /**
+   * Start the stream
+   */
   start() {
     this.makeRequest();
-    // Start request interval
+    // Start setInterval and store id
     this.intervalId = setInterval(this.makeRequest.bind(this), this.interval);
   }
 
+  /**
+   * Make a request on instagram API
+   * Cache the result and emit only new messages
+   */
   makeRequest() {
     const params = {};
     if (this.minTagId) {
@@ -46,6 +62,9 @@ class Stream extends EventEmitter {
       });
   }
 
+  /**
+   * Stop the stream
+   */
   stop() {
     clearInterval(this.intervalId);
   }
