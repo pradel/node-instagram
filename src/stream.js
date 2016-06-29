@@ -30,6 +30,8 @@ class Stream extends EventEmitter {
    */
   start() {
     this.makeRequest();
+    // Stop the old stream if there is one
+    this.stop();
     // Start setInterval and store id
     this.intervalId = setInterval(this.makeRequest.bind(this), this.interval);
   }
@@ -66,7 +68,9 @@ class Stream extends EventEmitter {
    * Stop the stream
    */
   stop() {
-    clearInterval(this.intervalId);
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 }
 
