@@ -24,6 +24,11 @@ const instagram = new Instagram({
   accessToken: 'user-access-token',
 });
 
+// You can use callbacks or promises
+instagram.get('users/self', (err, data) => {
+  console.log(data);
+});
+
 // Get information about the owner of the access_token.
 instagram.get('users/self').then((data) => {
   console.log(data);
@@ -116,23 +121,26 @@ Create a new Instagram instance
 * `clientId` **string**
 * `accessToken` **string**
 
-###`instagram.get(endpoint, params)`
+###`instagram.get(endpoint, [params, callback])`
 Make a GET request on endpoint
 ####Arguments
 * `endpoint` **string**
 * `params` **object**
+* `callback` **function**
 
-###`instagram.post(endpoint, params)`
+###`instagram.post(endpoint, [params, callback])`
 Make a POST request on endpoint
 ####Arguments
 * `endpoint` **string**
 * `params` **object**
+* `callback` **function**
 
-###`instagram.delete(endpoint, params)`
+###`instagram.delete(endpoint, [params, callback])`
 Make a DELETE request on endpoint
 ####Arguments
 * `endpoint` **string**
 * `params` **object**
+* `callback` **function**
 
 ###`instagram.stream(endpoint, params)`
 Start a fake stream to a endpoint and return new messages found

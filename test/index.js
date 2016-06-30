@@ -66,6 +66,30 @@ describe('Instagram', () => {
         assert.equal(e, 'error');
       }
     });
+
+    it('sould call callback with value', (done) => {
+      const endpoint = 'tag/sunset';
+      nock('https://api.instagram.com')
+        .get(`/v1/${endpoint}`)
+        .query({ access_token: 'toto' })
+        .reply(200, 'success');
+      instagram.request('GET', endpoint, (err, data) => {
+        assert.equal(data, 'success');
+        done();
+      });
+    });
+
+    it('sould call callback with error', (done) => {
+      const endpoint = 'tag/sunset';
+      nock('https://api.instagram.com')
+        .get(`/v1/${endpoint}`)
+        .query({ access_token: 'toto' })
+        .reply(400, 'error');
+      instagram.request('GET', endpoint, (err) => {
+        assert.equal(err, 'error');
+        done();
+      });
+    });
   });
 
   describe('#get', () => {

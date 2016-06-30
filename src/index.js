@@ -1,4 +1,5 @@
 import rp from 'request-promise';
+import isFunction from 'lodash.isfunction';
 import Stream from './stream';
 
 class Instagram {
@@ -19,10 +20,15 @@ class Instagram {
    * @param  {String} type
    * @param  {String} endpoint
    * @param  {Object} options
+   * @param  {Function} callback
    * @return {Promise}
    * @private
    */
-  request(type, endpoint, options = {}) {
+  request(type, endpoint, options = {}, callback) {
+    if (isFunction(options)) {
+      callback = options;
+      options = {};
+    }
     let key = 'qs';
     let accessToken = this.accessToken;
     if (options.accessToken) {
@@ -39,8 +45,19 @@ class Instagram {
         access_token: accessToken,
       }, options),
       json: true,
-    }).catch((err) => {
-      throw err.error || err;
+    })
+    .then((data) => {
+      if (isFunction(callback)) {
+        callback(null, data);
+      }
+      return data;
+    })
+    .catch((err) => {
+      const error = err.error || err;
+      if (isFunction(callback)) {
+        return callback(error);
+      }
+      throw error;
     });
   }
 
@@ -48,30 +65,33 @@ class Instagram {
    * Send a GET request
    * @param  {String} endpoint
    * @param  {Object} [options]
+   * @param  {Function} [callback]
    * @return {Promise}
    */
-  get(endpoint, options) {
-    return this.request('GET', endpoint, options);
+  get(endpoint, options, callback) {
+    return this.request('GET', endpoint, options, callback);
   }
 
   /**
    * Send a POST request
    * @param  {String} endpoint
    * @param  {Object} [options]
+   * @param  {Function} [callback]
    * @return {Promise}
    */
-  post(endpoint, options) {
-    return this.request('POST', endpoint, options);
+  post(endpoint, options, callback) {
+    return this.request('POST', endpoint, options, callback);
   }
 
   /**
    * Send a DELETE request
    * @param  {String} endpoint
    * @param  {Object} [options]
+   * @param  {Function} [callback]
    * @return {Promise}
    */
-  delete(endpoint, options) {
-    return this.request('DELETE', endpoint, options);
+  delete(endpoint, options, callback) {
+    return this.request('DELETE', endpoint, options, callback);
   }
 
   /**

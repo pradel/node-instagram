@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/pradel/node-instagram#readme",
   "dependencies": {
+    "lodash.isfunction": "^3.0.8",
     "request-promise": "^3.0.0"
   },
   "devDependencies": {
