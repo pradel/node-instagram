@@ -20,6 +20,7 @@ class Stream extends EventEmitter {
     this.minTagId = options.minTagId;
     this.intervalId = null;
     this.cache = [];
+    this.accessToken = options.accessToken;
     if (this.runOnCreation) {
       this.start();
     }
@@ -41,7 +42,9 @@ class Stream extends EventEmitter {
    * Cache the result and emit only new messages
    */
   makeRequest() {
-    const params = {};
+    const params = {
+      accessToken: this.accessToken,
+    };
     if (this.minTagId) {
       params.min_tag_id = this.minTagId;
     }
