@@ -40,6 +40,23 @@ describe('Stream', () => {
     assert.equal(stream.minTagId, minTagId);
   });
 
+  it('should overwrite accessToken', (done) => {
+    const data = [{ id: 'a' }, { id: 'b' }];
+    nock('https://api.instagram.com')
+      .get(`/v1/${endpoint}`)
+      .query({ access_token: 'accessToken' })
+      .reply(200, {
+        pagination: {},
+        data,
+      });
+    const stream = instagram.stream(endpoint, { accessToken: 'accessToken' });
+    stream.on('messages', (messages) => {
+      assert.deepEqual(messages, data);
+      stream.stop();
+      done();
+    });
+  });
+
   describe('#start', () => {
     it('should be a function', () => {
       const stream = instagram.stream(endpoint, { runOnCreation: false });
