@@ -5,6 +5,7 @@ import nock from 'nock';
 import EventEmitter from 'events';
 import Instagram from '../src/index';
 import Stream from '../src/stream';
+import { generateNewMessage, generateOldMessage } from './utils';
 
 describe('Stream', () => {
   const endpoint = 'tags/paris/media/recent';
@@ -41,7 +42,7 @@ describe('Stream', () => {
   });
 
   it('should overwrite accessToken', (done) => {
-    const data = [{ id: 'a' }, { id: 'b' }];
+    const data = [generateNewMessage('a')];
     nock('https://api.instagram.com')
       .get(`/v1/${endpoint}`)
       .query({ access_token: 'accessToken' })
@@ -119,7 +120,7 @@ describe('Stream', () => {
     });
 
     it('should return messages event', (done) => {
-      const data = [{ id: 'a' }, { id: 'b' }];
+      const data = [generateNewMessage('a'), generateNewMessage('b')];
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
@@ -148,8 +149,25 @@ describe('Stream', () => {
       });
     });
 
+    it('should not return old messages', (done) => {
+      const data = [generateOldMessage('a'), generateNewMessage('b')];
+      nock('https://api.instagram.com')
+        .get(`/v1/${endpoint}`)
+        .query({ access_token: 'toto' })
+        .reply(200, {
+          pagination: {},
+          data,
+        });
+      const stream = instagram.stream(endpoint);
+      stream.on('messages', (messages) => {
+        assert.deepEqual(messages, [data[1]]);
+        stream.stop();
+        done();
+      });
+    });
+
     it('should add messages to cache', (done) => {
-      const data = [{ id: 'a' }, { id: 'b' }];
+      const data = [generateNewMessage('a'), generateNewMessage('b')];
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
@@ -167,7 +185,7 @@ describe('Stream', () => {
     });
 
     it('should not return messages in cache', (done) => {
-      const data = [{ id: 'a' }, { id: 'b' }];
+      const data = [generateNewMessage('a'), generateNewMessage('b')];
       const scope = nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
@@ -190,7 +208,7 @@ describe('Stream', () => {
     });
 
     it('should make a request with min_tag_id if provided', (done) => {
-      const data = [{ id: 'a' }, { id: 'b' }];
+      const data = [generateNewMessage('a'), generateNewMessage('b')];
       const scope1 = nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
@@ -222,7 +240,7 @@ describe('Stream', () => {
     });
 
     it('should make next request with min_tag_id if provided', (done) => {
-      const data = [{ id: 'a' }, { id: 'b' }];
+      const data = [generateNewMessage('a'), generateNewMessage('b')];
       const scope1 = nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
@@ -254,7 +272,7 @@ describe('Stream', () => {
     });
 
     it('should clear cache when min_tag_id is provided', (done) => {
-      const data = [{ id: 'a' }, { id: 'b' }];
+      const data = [generateNewMessage('a'), generateNewMessage('b')];
       const scope = nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
