@@ -36,7 +36,7 @@ class Instagram {
       delete options.accessToken; // eslint-disable-line no-param-reassign
     }
     if (type === 'POST') {
-      key = 'body';
+      key = 'form';
     }
     return rp({
       method: type,
