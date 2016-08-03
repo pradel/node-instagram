@@ -1,5 +1,6 @@
 [![npm version](https://badge.fury.io/js/node-instagram.svg)](https://badge.fury.io/js/node-instagram)
 [![Build Status](https://travis-ci.org/pradel/node-instagram.svg?branch=master)](https://travis-ci.org/pradel/node-instagram)
+[![Coverage Status](https://coveralls.io/repos/github/pradel/ionic-push/badge.svg?branch=master)](https://coveralls.io/github/pradel/ionic-push?branch=master)
 [![Dependency Status](https://david-dm.org/pradel/node-instagram.svg)](https://david-dm.org/pradel/node-instagram)
 [![devDependency Status](https://david-dm.org/pradel/node-instagram/dev-status.svg)](https://david-dm.org/pradel/node-instagram#info=devDependencies)
 
