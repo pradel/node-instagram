@@ -11,11 +11,12 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
+    "build:test": "babel test --out-dir lib-test",
     "lint": "eslint src test",
     "test": "npm run lint && npm run test:src && npm run build",
-    "test-travis": "npm run lint && npm run test-travis:src && npm run build",
+    "test-travis": "npm run lint && npm run build:test && npm run test-travis:src && npm run build",
     "test:src": "mocha --compilers js:babel-core/register ./test",
-    "test-travis:src": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec --compilers js:babel-core/register ./test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test-travis:src": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./lib-test",
     "prepublish": "publish-please guard",
     "publish-please": "publish-please"
   },

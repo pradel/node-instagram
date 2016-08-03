@@ -3,8 +3,8 @@ import { assert } from 'chai';
 import { spy } from 'sinon';
 import nock from 'nock';
 import EventEmitter from 'events';
-import Instagram from '../src/index';
-import Stream from '../src/stream';
+import Instagram from '../lib/index';
+import Stream from '../lib/stream';
 import { generateNewMessage, generateOldMessage } from './utils';
 
 describe('Stream', () => {
