@@ -14,7 +14,7 @@
     "build:test": "babel test --out-dir lib-test",
     "lint": "eslint src test",
     "test": "npm run lint && npm run test:src && npm run build",
-    "test-travis": "npm run lint && npm run build && npm run build:test && npm run test-travis:src",
+    "test-travis": "npm run build && npm run build:test && npm run lint && npm run test-travis:src",
     "test:src": "mocha --compilers js:babel-core/register ./test",
     "test-travis:src": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./lib-test",
     "prepublish": "publish-please guard",
