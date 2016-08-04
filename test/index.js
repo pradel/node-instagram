@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import { assert } from 'chai';
 import nock from 'nock';
-import Instagram from '../lib/index';
+import Instagram from '../src/index';
 
 describe('Instagram', () => {
   it('should be a class', () => {

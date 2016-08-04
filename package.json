@@ -11,12 +11,11 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "build:test": "babel test --out-dir lib-test",
     "lint": "eslint src test",
     "test": "npm run lint && npm run test:src && npm run build",
-    "test-travis": "npm run build && npm run build:test && npm run lint && npm run test-travis:src",
+    "test-travis": "npm run build && npm run lint && npm run test-travis:src",
     "test:src": "mocha --compilers js:babel-core/register ./test",
-    "test-travis:src": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec ./lib-test",
+    "test-travis:src": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha -- ./test/",
     "prepublish": "publish-please guard",
     "publish-please": "publish-please"
   },
@@ -36,6 +35,7 @@
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
+    "babel-istanbul": "^0.11.0",
     "babel-plugin-transform-async-to-generator": "^6.8.0",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
