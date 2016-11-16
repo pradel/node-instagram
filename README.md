@@ -61,6 +61,11 @@ instagram.get('users/search', { q: 'paris' }).then((data) => {
   console.log(data);
 });
 
+// Get information about this media.
+instagram.get('media/:media-id').then((data) => {
+  console.log(data);
+});
+
 // Get a list of users who have liked this media.
 instagram.get('media/:media-id/likes').then((data) => {
   console.log(data);
