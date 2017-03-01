@@ -7,6 +7,8 @@
 
 # node-instagram
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/pradel/node-instagram.svg)](https://greenkeeper.io/)
+
 Instagram api client for node that support promises.
 
 To see all endpoint available take a look at [instagram developer documentation](https://www.instagram.com/developer/endpoints/).
