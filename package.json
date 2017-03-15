@@ -53,6 +53,6 @@
     "mocha-lcov-reporter": "^1.2.0",
     "nock": "^9.0.2",
     "publish-please": "^2.2.0",
-    "sinon": "^1.17.6"
+    "sinon": "^2.0.0"
   }
 }
