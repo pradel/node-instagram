@@ -17,6 +17,8 @@ To see all endpoint available take a look at [instagram developer documentation]
 
 `npm install --save node-instagram`
 
+`yarn add node-instagram`
+
 ## Usage
 
 ```javascript
@@ -34,9 +36,8 @@ instagram.get('users/self', (err, data) => {
 });
 
 // Get information about the owner of the access_token.
-instagram.get('users/self').then((data) => {
-  console.log(data);
-});
+const data = await instagram.get('users/self');
+console.log(data);
 
 // Get information about a user.
 instagram.get('users/:user-id').then((data) => {
