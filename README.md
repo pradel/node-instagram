@@ -125,36 +125,36 @@ stream.on('error', (err) => {
 
 ## Api
 
-###`const instagram = new Instagram(config)`
+### `const instagram = new Instagram(config)`
 Create a new Instagram instance
-####Arguments
+#### Arguments
 * `clientId` **string**
 * `accessToken` **string**
 
-###`instagram.get(endpoint, [params, callback])`
+### `instagram.get(endpoint, [params, callback])`
 Make a GET request on endpoint
-####Arguments
+#### Arguments
 * `endpoint` **string**
 * `params` **object**
 * `callback` **function**
 
-###`instagram.post(endpoint, [params, callback])`
+### `instagram.post(endpoint, [params, callback])`
 Make a POST request on endpoint
-####Arguments
+#### Arguments
 * `endpoint` **string**
 * `params` **object**
 * `callback` **function**
 
-###`instagram.delete(endpoint, [params, callback])`
+### `instagram.delete(endpoint, [params, callback])`
 Make a DELETE request on endpoint
-####Arguments
+#### Arguments
 * `endpoint` **string**
 * `params` **object**
 * `callback` **function**
 
-###`instagram.stream(endpoint, params)`
+### `instagram.stream(endpoint, params)`
 Start a fake stream to a endpoint and return new messages found
-####Arguments
+#### Arguments
 * `endpoint` **string**
 * `params` **object**
 * `params.interval` **number** interval to run inside **default** 10000
