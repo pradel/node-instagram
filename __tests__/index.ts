@@ -1,12 +1,10 @@
-import 'babel-polyfill';
-import { assert } from 'chai';
-import nock from 'nock';
-import Instagram from '../lib/index';
+import * as nock from 'nock';
+import Instagram from '../src/index';
 
 describe('Instagram', () => {
   it('should be a class', () => {
     const instagram = new Instagram({});
-    assert.ok(instagram instanceof Instagram);
+    expect(instagram instanceof Instagram).toBeTruthy();
   });
 
   it('should set clientId and accessToken', () => {
@@ -14,17 +12,13 @@ describe('Instagram', () => {
       clientId: 'toto',
       accessToken: 'toto2',
     });
-    assert.equal(instagram.config.clientId, 'toto');
-    assert.equal(instagram.config.accessToken, 'toto2');
+    expect(instagram.config.clientId).toEqual('toto');
+    expect(instagram.config.accessToken).toEqual('toto2');
   });
 
   describe('#request', () => {
     const instagram = new Instagram({
       accessToken: 'toto',
-    });
-
-    it('should be a function', () => {
-      assert.isFunction(instagram.request);
     });
 
     it('sould add access_token in query', async () => {
@@ -34,7 +28,7 @@ describe('Instagram', () => {
         .query({ access_token: 'toto' })
         .reply(200, 'success');
       const result = await instagram.request('GET', endpoint);
-      assert.equal(result, 'success');
+      expect(result).toEqual('success');
     });
 
     it('sould overwrite access_token in query', async () => {
@@ -46,7 +40,7 @@ describe('Instagram', () => {
       const result = await instagram.request('GET', endpoint, {
         accessToken: 'titi',
       });
-      assert.equal(result, 'success');
+      expect(result).toEqual('success');
     });
 
     it('sould return an error', async () => {
@@ -58,7 +52,7 @@ describe('Instagram', () => {
       try {
         await instagram.request('GET', endpoint);
       } catch (e) {
-        assert.equal(e, 'error');
+        expect(e).toEqual('error');
       }
     });
 
@@ -68,8 +62,8 @@ describe('Instagram', () => {
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
         .reply(200, 'success');
-      instagram.request('GET', endpoint, (err, data) => {
-        assert.equal(data, 'success');
+      instagram.request('GET', endpoint, (err, result) => {
+        expect(result).toEqual('success');
         done();
       });
     });
@@ -81,7 +75,7 @@ describe('Instagram', () => {
         .query({ access_token: 'toto' })
         .reply(400, 'error');
       instagram.request('GET', endpoint, (err) => {
-        assert.equal(err, 'error');
+        expect(err).toEqual('error');
         done();
       });
     });
@@ -92,10 +86,6 @@ describe('Instagram', () => {
       accessToken: 'toto',
     });
 
-    it('should be a function', () => {
-      assert.isFunction(instagram.get);
-    });
-
     it('sould make get request', async () => {
       const endpoint = 'tag/sunset';
       nock('https://api.instagram.com')
@@ -103,17 +93,13 @@ describe('Instagram', () => {
         .query({ access_token: 'toto' })
         .reply(200, 'success');
       const result = await instagram.get(endpoint);
-      assert.equal(result, 'success');
+      expect(result).toEqual('success');
     });
   });
 
   describe('#post', () => {
     const instagram = new Instagram({
       accessToken: 'toto',
-    });
-
-    it('should be a function', () => {
-      assert.isFunction(instagram.post);
     });
 
     it('sould make post request', async () => {
@@ -124,17 +110,14 @@ describe('Instagram', () => {
         })
         .reply(200, 'success');
       const result = await instagram.post(endpoint);
-      assert.equal(result, 'success');
+      expect(result).toEqual('success');
+
     });
   });
 
   describe('#delete', () => {
     const instagram = new Instagram({
       accessToken: 'toto',
-    });
-
-    it('should be a function', () => {
-      assert.isFunction(instagram.delete);
     });
 
     it('sould make delete request', async () => {
@@ -144,7 +127,7 @@ describe('Instagram', () => {
         .query({ access_token: 'toto' })
         .reply(200, 'success');
       const result = await instagram.delete(endpoint);
-      assert.equal(result, 'success');
+      expect(result).toEqual('success');
     });
   });
 });

@@ -13,10 +13,23 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src test",
-    "test": "npm run lint && npm run build && npm run test:src",
-    "test-travis": "npm run build && npm run lint && npm run test-travis:src",
-    "test:src": "mocha --compilers js:babel-core/register ./test",
-    "test-travis:src": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha -- ./test/"
+    "test": "npm run lint && npm run build && npm run testonly",
+    "testonly": "jest --coverage"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "testPathIgnorePatterns": [
+      "__tests__/utils.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "mapCoverage": true
   },
   "repository": {
     "type": "git",
@@ -49,10 +62,12 @@
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
     "istanbul": "^0.4.5",
+    "jest": "^20.0.4",
     "mocha": "^3.4.1",
     "mocha-lcov-reporter": "^1.2.0",
     "nock": "^9.0.13",
     "sinon": "^2.2.0",
+    "ts-jest": "^20.0.5",
     "typescript": "^2.3.4"
   }
 }
