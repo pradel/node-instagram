@@ -1,3 +1,5 @@
 .travis.yml
-test
+__tests__
 example
+src
+tsconfig.json

@@ -7,7 +7,7 @@ const instagram = new Instagram({
   accessToken: 'user-access-token',
 });
 
-// You can use callbacks or promises
+// Get user info
 instagram.get('users/self', (err, data) => {
   console.log(err, data);
 });

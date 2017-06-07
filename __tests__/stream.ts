@@ -1,8 +1,5 @@
-import 'babel-polyfill';
-import { assert } from 'chai';
-import { spy } from 'sinon';
-import nock from 'nock';
-import EventEmitter from 'events';
+import * as nock from 'nock';
+import * as EventEmitter from 'events';
 import Instagram from '../src/index';
 import Stream from '../src/stream';
 import { generateNewMessage, generateOldMessage } from './utils';
@@ -15,12 +12,12 @@ describe('Stream', () => {
 
   it('should be a class', () => {
     const stream = instagram.stream(endpoint, { runOnCreation: false });
-    assert.ok(stream instanceof Stream);
+    expect(stream instanceof Stream).toBeTruthy();
   });
 
   it('should be a instanceof EventEmitter', () => {
     const stream = instagram.stream(endpoint, { runOnCreation: false });
-    assert.ok(stream instanceof EventEmitter);
+    expect(stream instanceof EventEmitter).toBeTruthy();
   });
 
   it('should set interval', () => {
@@ -29,7 +26,7 @@ describe('Stream', () => {
       runOnCreation: false,
       interval,
     });
-    assert.equal(stream.interval, interval);
+    expect(stream.interval).toEqual(interval);
   });
 
   it('should set minTagId', () => {
@@ -38,7 +35,7 @@ describe('Stream', () => {
       runOnCreation: false,
       minTagId,
     });
-    assert.equal(stream.minTagId, minTagId);
+    expect(stream.minTagId).toEqual(minTagId);
   });
 
   it('should overwrite accessToken', (done) => {
@@ -52,36 +49,30 @@ describe('Stream', () => {
       });
     const stream = instagram.stream(endpoint, { accessToken: 'accessToken' });
     stream.on('messages', (messages) => {
-      assert.deepEqual(messages, data);
+      expect(messages).toEqual(data);
       stream.stop();
       done();
     });
   });
 
   describe('#start', () => {
-    it('should be a function', () => {
-      const stream = instagram.stream(endpoint, { runOnCreation: false });
-      assert.isFunction(stream.start);
-    });
-
     it('should call makeRequest', () => {
       const stream = instagram.stream(endpoint, { runOnCreation: false });
-      stream.makeRequest = spy();
+      stream.makeRequest = jest.fn();
       stream.start();
-      assert.ok(stream.makeRequest.called);
+      expect(stream.makeRequest.mock.calls.length).toEqual(1);
       stream.stop();
     });
 
     it('should interval on makeRequest', function intervalOnMakeRequest(done) {
-      this.timeout(3000);
       const stream = instagram.stream(endpoint, {
         runOnCreation: false,
         interval: 500,
       });
-      stream.makeRequest = spy();
+      stream.makeRequest = jest.fn();
       stream.start();
       setTimeout(() => {
-        assert.equal(stream.makeRequest.callCount, 5);
+        expect(stream.makeRequest.mock.calls.length).toEqual(5);
         stream.stop();
         done();
       }, 2500);
@@ -89,24 +80,18 @@ describe('Stream', () => {
   });
 
   describe('#stop', () => {
-    it('should be a function', () => {
-      const stream = instagram.stream(endpoint, { runOnCreation: false });
-      assert.isFunction(stream.stop);
-    });
-
     it('should stop interval', function stopInterval(done) {
-      this.timeout(5000);
       const stream = instagram.stream(endpoint, {
         runOnCreation: false,
         interval: 500,
       });
-      stream.makeRequest = spy();
+      stream.makeRequest = jest.fn();
       stream.start();
       setTimeout(() => {
-        assert.equal(stream.makeRequest.callCount, 5);
+        expect(stream.makeRequest.mock.calls.length).toEqual(5);
         stream.stop();
         setTimeout(() => {
-          assert.equal(stream.makeRequest.callCount, 5);
+          expect(stream.makeRequest.mock.calls.length).toEqual(5);
           done();
         }, 1000);
       }, 2500);
@@ -114,11 +99,6 @@ describe('Stream', () => {
   });
 
   describe('#makeRequest', () => {
-    it('should be a function', () => {
-      const stream = instagram.stream(endpoint, { runOnCreation: false });
-      assert.isFunction(stream.makeRequest);
-    });
-
     it('should return messages event', (done) => {
       const data = [generateNewMessage('a'), generateNewMessage('b')];
       nock('https://api.instagram.com')
@@ -130,7 +110,7 @@ describe('Stream', () => {
         });
       const stream = instagram.stream(endpoint);
       stream.on('messages', (messages) => {
-        assert.deepEqual(messages, data);
+        expect(messages).toEqual(data);
         stream.stop();
         done();
       });
@@ -143,7 +123,7 @@ describe('Stream', () => {
         .reply(400, 'error');
       const stream = instagram.stream(endpoint);
       stream.on('error', (err) => {
-        assert.equal(err, 'error');
+        expect(err).toEqual('error');
         stream.stop();
         done();
       });
@@ -160,7 +140,7 @@ describe('Stream', () => {
         });
       const stream = instagram.stream(endpoint);
       stream.on('messages', (messages) => {
-        assert.deepEqual(messages, [data[1]]);
+        expect(messages).toEqual([data[1]]);
         stream.stop();
         done();
       });
@@ -177,8 +157,8 @@ describe('Stream', () => {
         });
       const stream = instagram.stream(endpoint);
       stream.on('messages', (messages) => {
-        assert.deepEqual(stream.cache, data.map(val => val.id));
-        assert.deepEqual(messages, data);
+        expect(stream.cache).toEqual(data.map(val => val.id));
+        expect(messages).toEqual(data);
         stream.stop();
         done();
       });
@@ -197,12 +177,12 @@ describe('Stream', () => {
       const stream = instagram.stream(endpoint, {
         interval: 500,
       });
-      const callSpy = spy();
+      const callSpy = jest.fn();
       stream.on('messages', callSpy);
       setTimeout(() => {
         stream.stop();
-        assert.ok(scope.isDone());
-        assert.equal(callSpy.callCount, 1);
+        expect(scope.isDone()).toBeTruthy();
+        expect(callSpy.mock.calls.length).toEqual(1);
         done();
       }, 1500);
     });
@@ -228,13 +208,13 @@ describe('Stream', () => {
       const stream = instagram.stream(endpoint, {
         interval: 500,
       });
-      const callSpy = spy();
+      const callSpy = jest.fn();
       stream.on('messages', callSpy);
       setTimeout(() => {
         stream.stop();
-        assert.ok(scope1.isDone());
-        assert.ok(scope2.isDone());
-        assert.equal(callSpy.callCount, 2);
+        expect(scope1.isDone()).toBeTruthy();
+        expect(scope2.isDone()).toBeTruthy();
+        expect(callSpy.mock.calls.length).toEqual(2);
         done();
       }, 1000);
     });
@@ -260,13 +240,13 @@ describe('Stream', () => {
       const stream = instagram.stream(endpoint, {
         interval: 500,
       });
-      const callSpy = spy();
+      const callSpy = jest.fn();
       stream.on('messages', callSpy);
       setTimeout(() => {
         stream.stop();
-        assert.ok(scope1.isDone());
-        assert.ok(scope2.isDone());
-        assert.equal(callSpy.callCount, 2);
+        expect(scope1.isDone()).toBeTruthy();
+        expect(scope2.isDone()).toBeTruthy();
+        expect(callSpy.mock.calls.length).toEqual(2);
         done();
       }, 1000);
     });
@@ -283,13 +263,13 @@ describe('Stream', () => {
           data,
         });
       const stream = instagram.stream(endpoint);
-      const callSpy = spy();
+      const callSpy = jest.fn();
       stream.on('messages', callSpy);
       setTimeout(() => {
         stream.stop();
-        assert.ok(scope.isDone());
-        assert.equal(callSpy.callCount, 1);
-        assert.deepEqual(stream.cache, []);
+        expect(scope.isDone()).toBeTruthy();
+        expect(callSpy.mock.calls.length).toEqual(1);
+        expect(stream.cache).toEqual([]);
         done();
       }, 1000);
     });

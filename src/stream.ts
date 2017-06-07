@@ -1,6 +1,17 @@
-import EventEmitter from 'events';
+import * as EventEmitter from 'events';
+import Instagram from './index';
 
 class Stream extends EventEmitter {
+  private instagram: Instagram;
+  private endpoint: string;
+  private runOnCreation: boolean;
+  private interval: number;
+  private minTagId: number;
+  private intervalId: any;
+  private cache: Array<string>;
+  private accessToken: string;
+  private startDate: Date;
+
   /**
    * Create a new instance of stream class
    * @param {Instagram} instagram
@@ -10,7 +21,7 @@ class Stream extends EventEmitter {
    * @param {Number}    [options.interval]
    * @param {String}    [options.minTagId]
    */
-  constructor(instagram, endpoint, options = {}) {
+  constructor(instagram: Instagram, endpoint: string, options: any = {}) {
     super();
     this.instagram = instagram;
     this.endpoint = endpoint;
@@ -43,7 +54,7 @@ class Stream extends EventEmitter {
    * Cache the result and emit only new messages
    */
   makeRequest() {
-    const params = {
+    const params: any = {
       accessToken: this.accessToken,
     };
     if (this.minTagId) {
@@ -56,7 +67,7 @@ class Stream extends EventEmitter {
           let newPosts = data.data.filter(post => this.cache.indexOf(post.id) === -1);
           this.cache.push(...newPosts.map(post => post.id));
           // Only return messages created after the stream
-          newPosts = newPosts.filter(post => this.startDate < post.created_time * 1000);
+          newPosts = newPosts.filter(post => this.startDate < new Date(post.created_time * 1000));
           if (data.pagination.min_tag_id) {
             this.minTagId = data.pagination.min_tag_id;
             this.cache = [];
