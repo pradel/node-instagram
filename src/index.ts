@@ -1,18 +1,33 @@
-import rp from 'request-promise';
-import isFunction from 'lodash.isfunction';
+import * as requestPromise from 'request-promise';
+import * as isFunction from 'lodash.isfunction';
 import Stream from './stream';
 
+export interface InstagramConfig {
+  clientId: string;
+  accessToken: string;
+  apiVersion?: string;
+}
+
 class Instagram {
+  private apiUrl: string;
+  private config: {
+    clientId: string;
+    accessToken: string;
+  };
+
   /**
    * Create a new instance of instagram class
-   * @param {Object} options
-   * @param {String} options.clientId
-   * @param {String} options.accessToken
+   * @param {Object} config
+   * @param {String} config.clientId
+   * @param {String} config.accessToken
    */
-  constructor(options = {}) {
-    this.baseApi = 'https://api.instagram.com/v1/';
-    this.clientId = options.clientId;
-    this.accessToken = options.accessToken;
+  constructor(config: InstagramConfig) {
+    const apiVersion = config.apiVersion || 'v1';
+    this.apiUrl = `https://api.instagram.com/${apiVersion}/`;
+    this.config = {
+      clientId: config.clientId,
+      accessToken: config.accessToken,
+    };
   }
 
   /**
@@ -24,13 +39,13 @@ class Instagram {
    * @return {Promise}
    * @private
    */
-  request(type, endpoint, options = {}, callback) {
+  request(type: string, endpoint: string, options: any = {}, callback?: (err?: any, data?: any) => void): Promise<any> {
     if (isFunction(options)) {
       callback = options;
       options = {};
     }
     let key = 'qs';
-    let accessToken = this.accessToken;
+    let accessToken = this.config.accessToken;
     if (options.accessToken) {
       accessToken = options.accessToken;
       delete options.accessToken; // eslint-disable-line no-param-reassign
@@ -38,12 +53,10 @@ class Instagram {
     if (type === 'POST') {
       key = 'form';
     }
-    return rp({
+    return requestPromise({
       method: type,
-      uri: `${this.baseApi}${endpoint}`,
-      [key]: Object.assign({
-        access_token: accessToken,
-      }, options),
+      uri: `${this.apiUrl}${endpoint}`,
+      [key]:{ access_token: accessToken, ...options },
       json: true,
     })
     .then((data) => {
@@ -68,7 +81,7 @@ class Instagram {
    * @param  {Function} [callback]
    * @return {Promise}
    */
-  get(endpoint, options, callback) {
+  get(endpoint: string, options?: any, callback?: (err?: any, data?: any) => void): Promise<any> {
     return this.request('GET', endpoint, options, callback);
   }
 
@@ -79,7 +92,7 @@ class Instagram {
    * @param  {Function} [callback]
    * @return {Promise}
    */
-  post(endpoint, options, callback) {
+  post(endpoint: string, options?: any, callback?: (err?: any, data?: any) => void): Promise<any> {
     return this.request('POST', endpoint, options, callback);
   }
 
@@ -90,7 +103,7 @@ class Instagram {
    * @param  {Function} [callback]
    * @return {Promise}
    */
-  delete(endpoint, options, callback) {
+  delete(endpoint: string, options?: any, callback?: (err?: any, data?: any) => void): Promise<any> {
     return this.request('DELETE', endpoint, options, callback);
   }
 
@@ -100,7 +113,7 @@ class Instagram {
    * @param  {Object} [options]
    * @return {EventEmitter}
    */
-  stream(endpoint, options) {
+  stream(endpoint: string, options?: any): Stream {
     return new Stream(this, endpoint, options);
   }
 }

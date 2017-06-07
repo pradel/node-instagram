@@ -6,13 +6,14 @@
   "keywords": [
     "instagram",
     "api",
-    "node"
+    "node",
+    "typescript"
   ],
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "tsc",
     "lint": "eslint src test",
-    "test": "npm run lint && npm run test:src && npm run build",
+    "test": "npm run lint && npm run build && npm run test:src",
     "test-travis": "npm run build && npm run lint && npm run test-travis:src",
     "test:src": "mocha --compilers js:babel-core/register ./test",
     "test-travis:src": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha -- ./test/"
@@ -26,8 +27,9 @@
   },
   "homepage": "https://github.com/pradel/node-instagram#readme",
   "dependencies": {
+    "@types/request-promise": "^4.1.33",
     "lodash.isfunction": "^3.0.8",
-    "request": "^2.34",
+    "request": "^2.81.0",
     "request-promise": "^4.2.1"
   },
   "devDependencies": {
@@ -50,6 +52,7 @@
     "mocha": "^3.4.1",
     "mocha-lcov-reporter": "^1.2.0",
     "nock": "^9.0.13",
-    "sinon": "^2.2.0"
+    "sinon": "^2.2.0",
+    "typescript": "^2.3.4"
   }
 }

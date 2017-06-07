@@ -1,26 +1,21 @@
 import 'babel-polyfill';
 import { assert } from 'chai';
 import nock from 'nock';
-import Instagram from '../src/index';
+import Instagram from '../lib/index';
 
 describe('Instagram', () => {
   it('should be a class', () => {
-    const instagram = new Instagram();
+    const instagram = new Instagram({});
     assert.ok(instagram instanceof Instagram);
   });
 
-  it('should set clientId', () => {
+  it('should set clientId and accessToken', () => {
     const instagram = new Instagram({
       clientId: 'toto',
+      accessToken: 'toto2',
     });
-    assert.equal(instagram.clientId, 'toto');
-  });
-
-  it('should set accessToken', () => {
-    const instagram = new Instagram({
-      accessToken: 'toto',
-    });
-    assert.equal(instagram.accessToken, 'toto');
+    assert.equal(instagram.config.clientId, 'toto');
+    assert.equal(instagram.config.accessToken, 'toto2');
   });
 
   describe('#request', () => {
