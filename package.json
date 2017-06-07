@@ -12,8 +12,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src test",
-    "test": "npm run lint && npm run build && npm run testonly",
+    "test": "npm run build && npm run testonly",
     "testonly": "jest --coverage"
   },
   "jest": {
@@ -46,27 +45,9 @@
     "request-promise": "^4.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
-    "babel-eslint": "^7.2.3",
-    "babel-istanbul": "^0.12.2",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-polyfill": "^6.16.0",
-    "babel-preset-es2015": "^6.24.1",
-    "chai": "^3.5.0",
     "coveralls": "^2.13.1",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.0",
-    "eslint-plugin-babel": "^4.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^5.0.1",
-    "eslint-plugin-react": "^7.0.0",
-    "istanbul": "^0.4.5",
     "jest": "^20.0.4",
-    "mocha": "^3.4.1",
-    "mocha-lcov-reporter": "^1.2.0",
     "nock": "^9.0.13",
-    "sinon": "^2.2.0",
     "ts-jest": "^20.0.5",
     "typescript": "^2.3.4"
   }
