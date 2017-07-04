@@ -39,7 +39,12 @@ class Instagram {
    * @return {Promise}
    * @private
    */
-  request(type: string, endpoint: string, options: any = {}, callback?: (err?: any, data?: any) => void): Promise<any> {
+  request(
+    type: string,
+    endpoint: string,
+    options: any = {},
+    callback?: (err?: any, data?: any) => void
+  ): Promise<any> {
     if (isFunction(options)) {
       callback = options;
       options = {};
@@ -56,22 +61,22 @@ class Instagram {
     return requestPromise({
       method: type,
       uri: `${this.apiUrl}${endpoint}`,
-      [key]:{ access_token: accessToken, ...options },
+      [key]: { access_token: accessToken, ...options },
       json: true,
     })
-    .then((data) => {
-      if (isFunction(callback)) {
-        callback(null, data);
-      }
-      return data;
-    })
-    .catch((err) => {
-      const error = err.error || err;
-      if (isFunction(callback)) {
-        return callback(error);
-      }
-      throw error;
-    });
+      .then(data => {
+        if (isFunction(callback)) {
+          callback(null, data);
+        }
+        return data;
+      })
+      .catch(err => {
+        const error = err.error || err;
+        if (isFunction(callback)) {
+          return callback(error);
+        }
+        throw error;
+      });
   }
 
   /**
@@ -81,7 +86,11 @@ class Instagram {
    * @param  {Function} [callback]
    * @return {Promise}
    */
-  get(endpoint: string, options?: any, callback?: (err?: any, data?: any) => void): Promise<any> {
+  get(
+    endpoint: string,
+    options?: any,
+    callback?: (err?: any, data?: any) => void
+  ): Promise<any> {
     return this.request('GET', endpoint, options, callback);
   }
 
@@ -92,7 +101,11 @@ class Instagram {
    * @param  {Function} [callback]
    * @return {Promise}
    */
-  post(endpoint: string, options?: any, callback?: (err?: any, data?: any) => void): Promise<any> {
+  post(
+    endpoint: string,
+    options?: any,
+    callback?: (err?: any, data?: any) => void
+  ): Promise<any> {
     return this.request('POST', endpoint, options, callback);
   }
 
@@ -103,7 +116,11 @@ class Instagram {
    * @param  {Function} [callback]
    * @return {Promise}
    */
-  delete(endpoint: string, options?: any, callback?: (err?: any, data?: any) => void): Promise<any> {
+  delete(
+    endpoint: string,
+    options?: any,
+    callback?: (err?: any, data?: any) => void
+  ): Promise<any> {
     return this.request('DELETE', endpoint, options, callback);
   }
 

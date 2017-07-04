@@ -56,7 +56,7 @@ describe('Instagram', () => {
       }
     });
 
-    it('sould call callback with value', (done) => {
+    it('sould call callback with value', done => {
       const endpoint = 'tag/sunset';
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
@@ -68,13 +68,13 @@ describe('Instagram', () => {
       });
     });
 
-    it('sould call callback with error', (done) => {
+    it('sould call callback with error', done => {
       const endpoint = 'tag/sunset';
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
         .reply(400, 'error');
-      instagram.request('GET', endpoint, (err) => {
+      instagram.request('GET', endpoint, err => {
         expect(err).toEqual('error');
         done();
       });
@@ -111,7 +111,6 @@ describe('Instagram', () => {
         .reply(200, 'success');
       const result = await instagram.post(endpoint);
       expect(result).toEqual('success');
-
     });
   });
 

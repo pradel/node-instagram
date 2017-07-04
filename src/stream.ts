@@ -60,14 +60,19 @@ class Stream extends EventEmitter {
     if (this.minTagId) {
       params.min_tag_id = this.minTagId;
     }
-    this.instagram.get(this.endpoint, params)
-      .then((data) => {
+    this.instagram
+      .get(this.endpoint, params)
+      .then(data => {
         if (data.data.length > 0) {
           // Only return messages not in cache
-          let newPosts = data.data.filter(post => this.cache.indexOf(post.id) === -1);
+          let newPosts = data.data.filter(
+            post => this.cache.indexOf(post.id) === -1
+          );
           this.cache.push(...newPosts.map(post => post.id));
           // Only return messages created after the stream
-          newPosts = newPosts.filter(post => this.startDate < new Date(post.created_time * 1000));
+          newPosts = newPosts.filter(
+            post => this.startDate < new Date(post.created_time * 1000)
+          );
           if (data.pagination.min_tag_id) {
             this.minTagId = data.pagination.min_tag_id;
             this.cache = [];
@@ -77,7 +82,7 @@ class Stream extends EventEmitter {
           }
         }
       })
-      .catch((err) => {
+      .catch(err => {
         this.emit('error', err.error || err);
       });
   }

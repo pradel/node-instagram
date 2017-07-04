@@ -12,8 +12,10 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && npm run testonly",
-    "testonly": "jest --coverage"
+    "test": "npm run build && npm run testonly && npm run prettier-diff",
+    "testonly": "jest --coverage",
+    "format": "prettier --single-quote --trailing-comma es5 --parser typescript --write \"{src,__tests__}/**/*.ts\"",
+    "prettier-diff": "prettier --single-quote --trailing-comma es5 --parser typescript --list-different \"{src,__tests__}/**/*.ts\""
   },
   "jest": {
     "transform": {
@@ -48,7 +50,8 @@
     "coveralls": "^2.13.1",
     "jest": "^20.0.4",
     "nock": "^9.0.13",
-    "ts-jest": "^20.0.5",
-    "typescript": "^2.3.4"
+    "prettier": "^1.5.2",
+    "ts-jest": "^20.0.6",
+    "typescript": "2.3.4"
   }
 }
