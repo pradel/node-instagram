@@ -1,5 +1,5 @@
-import * as nock from 'nock';
 import * as EventEmitter from 'events';
+import * as nock from 'nock';
 import Instagram from '../src/index';
 import Stream from '../src/stream';
 import { generateNewMessage, generateOldMessage } from './utils';

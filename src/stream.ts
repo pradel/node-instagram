@@ -8,7 +8,7 @@ class Stream extends EventEmitter {
   private interval: number;
   private minTagId: number;
   private intervalId: any;
-  private cache: Array<string>;
+  private cache: string[];
   private accessToken: string;
   private startDate: Date;
 
@@ -40,7 +40,7 @@ class Stream extends EventEmitter {
   /**
    * Start the stream
    */
-  start() {
+  public start() {
     this.startDate = new Date();
     this.makeRequest();
     // Stop the old stream if there is one
@@ -50,10 +50,19 @@ class Stream extends EventEmitter {
   }
 
   /**
+   * Stop the stream
+   */
+  public stop() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  /**
    * Make a request on instagram API
    * Cache the result and emit only new messages
    */
-  makeRequest() {
+  private makeRequest() {
     const params: any = {
       accessToken: this.accessToken,
     };
@@ -85,15 +94,6 @@ class Stream extends EventEmitter {
       .catch(err => {
         this.emit('error', err.error || err);
       });
-  }
-
-  /**
-   * Stop the stream
-   */
-  stop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
   }
 }
 

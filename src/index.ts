@@ -1,5 +1,5 @@
-import * as requestPromise from 'request-promise';
 import * as isFunction from 'lodash.isfunction';
+import * as requestPromise from 'request-promise';
 import Stream from './stream';
 
 export interface InstagramConfig {
@@ -31,6 +31,61 @@ class Instagram {
   }
 
   /**
+   * Send a GET request
+   * @param  {String} endpoint
+   * @param  {Object} [options]
+   * @param  {Function} [callback]
+   * @return {Promise}
+   */
+  public get(
+    endpoint: string,
+    options?: any,
+    callback?: (err?: any, data?: any) => void
+  ): Promise<any> {
+    return this.request('GET', endpoint, options, callback);
+  }
+
+  /**
+   * Send a POST request
+   * @param  {String} endpoint
+   * @param  {Object} [options]
+   * @param  {Function} [callback]
+   * @return {Promise}
+   */
+  public post(
+    endpoint: string,
+    options?: any,
+    callback?: (err?: any, data?: any) => void
+  ): Promise<any> {
+    return this.request('POST', endpoint, options, callback);
+  }
+
+  /**
+   * Send a DELETE request
+   * @param  {String} endpoint
+   * @param  {Object} [options]
+   * @param  {Function} [callback]
+   * @return {Promise}
+   */
+  public delete(
+    endpoint: string,
+    options?: any,
+    callback?: (err?: any, data?: any) => void
+  ): Promise<any> {
+    return this.request('DELETE', endpoint, options, callback);
+  }
+
+  /**
+   * Create a new instagram stream
+   * @param  {String} endpoint
+   * @param  {Object} [options]
+   * @return {EventEmitter}
+   */
+  public stream(endpoint: string, options?: any): Stream {
+    return new Stream(this, endpoint, options);
+  }
+
+  /**
    * Send a request
    * @param  {String} type
    * @param  {String} endpoint
@@ -39,7 +94,7 @@ class Instagram {
    * @return {Promise}
    * @private
    */
-  request(
+  private request(
     type: string,
     endpoint: string,
     options: any = {},
@@ -77,61 +132,6 @@ class Instagram {
         }
         throw error;
       });
-  }
-
-  /**
-   * Send a GET request
-   * @param  {String} endpoint
-   * @param  {Object} [options]
-   * @param  {Function} [callback]
-   * @return {Promise}
-   */
-  get(
-    endpoint: string,
-    options?: any,
-    callback?: (err?: any, data?: any) => void
-  ): Promise<any> {
-    return this.request('GET', endpoint, options, callback);
-  }
-
-  /**
-   * Send a POST request
-   * @param  {String} endpoint
-   * @param  {Object} [options]
-   * @param  {Function} [callback]
-   * @return {Promise}
-   */
-  post(
-    endpoint: string,
-    options?: any,
-    callback?: (err?: any, data?: any) => void
-  ): Promise<any> {
-    return this.request('POST', endpoint, options, callback);
-  }
-
-  /**
-   * Send a DELETE request
-   * @param  {String} endpoint
-   * @param  {Object} [options]
-   * @param  {Function} [callback]
-   * @return {Promise}
-   */
-  delete(
-    endpoint: string,
-    options?: any,
-    callback?: (err?: any, data?: any) => void
-  ): Promise<any> {
-    return this.request('DELETE', endpoint, options, callback);
-  }
-
-  /**
-   * Create a new instagram stream
-   * @param  {String} endpoint
-   * @param  {Object} [options]
-   * @return {EventEmitter}
-   */
-  stream(endpoint: string, options?: any): Stream {
-    return new Stream(this, endpoint, options);
   }
 }
 

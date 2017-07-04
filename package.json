@@ -12,8 +12,9 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && npm run testonly && npm run prettier-diff",
+    "test": "npm run build && npm run testonly && npm run lint && npm run prettier-diff",
     "testonly": "jest --coverage",
+    "lint": "tslint \"{src,__tests__}/**/*.ts\"",
     "format": "prettier --single-quote --trailing-comma es5 --parser typescript --write \"{src,__tests__}/**/*.ts\"",
     "prettier-diff": "prettier --single-quote --trailing-comma es5 --parser typescript --list-different \"{src,__tests__}/**/*.ts\""
   },
@@ -52,6 +53,8 @@
     "nock": "^9.0.13",
     "prettier": "^1.5.2",
     "ts-jest": "^20.0.6",
+    "tslint": "^5.4.3",
+    "tslint-config-prettier": "^1.1.0",
     "typescript": "2.3.4"
   }
 }
