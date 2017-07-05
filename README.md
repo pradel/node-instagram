@@ -21,6 +21,9 @@ To see all endpoint available take a look at [instagram developer documentation]
 
 ```javascript
 import Instagram from 'node-instagram';
+// or
+const Instagram = require('node-instagram').default;
+
 
 // Create a new instance.
 const instagram = new Instagram({
