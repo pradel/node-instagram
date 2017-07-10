@@ -129,4 +129,60 @@ describe('Instagram', () => {
       expect(result).toEqual('success');
     });
   });
+
+  describe('#getAuthorizationUrl', () => {
+    const instagram = new Instagram({
+      clientId: 'clientId',
+      accessToken: 'toto',
+    });
+    const redirectUrl = 'http://localhost:3000';
+
+    it('sould generate authorization url', async () => {
+      const url = instagram.getAuthorizationUrl(redirectUrl);
+      expect(url).toMatchSnapshot();
+    });
+
+    it('sould generate pass scope', async () => {
+      const url = instagram.getAuthorizationUrl(redirectUrl, {
+        scope: 'likes',
+      });
+      expect(url).toMatchSnapshot();
+    });
+
+    it('sould generate pass scope array', async () => {
+      const url = instagram.getAuthorizationUrl(redirectUrl, {
+        scope: ['likes', 'basic'],
+      });
+      expect(url).toMatchSnapshot();
+    });
+
+    it('sould generate pass state', async () => {
+      const url = instagram.getAuthorizationUrl(redirectUrl, { state: 'hey' });
+      expect(url).toMatchSnapshot();
+    });
+  });
+
+  describe('#authorizeUser', () => {
+    const instagram = new Instagram({
+      clientId: 'clientId',
+      clientSecret: 'clientSecret',
+      accessToken: 'toto',
+    });
+    const code = 'my-code';
+    const redirectUrl = 'http://localhost:3000';
+
+    it('sould make post request', async () => {
+      nock('https://api.instagram.com')
+        .post('/oauth/access_token', {
+          code,
+          redirect_uri: redirectUrl,
+          client_id: 'clientId',
+          client_secret: 'clientSecret',
+          grant_type: 'authorization_code',
+        })
+        .reply(200, 'success');
+      const result = await instagram.authorizeUser(code, redirectUrl);
+      expect(result).toEqual('success');
+    });
+  });
 });
