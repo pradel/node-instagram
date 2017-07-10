@@ -1,5 +1,5 @@
 // require module
-const Instagram = require('../lib').default;
+const Instagram = require('../../lib').default;
 
 // Create a new instance.
 const instagram = new Instagram({

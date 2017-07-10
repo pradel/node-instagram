@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Instagram #getAuthorizationUrl sould generate authorization url 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code"`;
+
+exports[`Instagram #getAuthorizationUrl sould generate pass scope 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code&scope=likes"`;
+
+exports[`Instagram #getAuthorizationUrl sould generate pass scope array 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code&scope=likes+basic"`;
+
+exports[`Instagram #getAuthorizationUrl sould generate pass state 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code&state=hey"`;
