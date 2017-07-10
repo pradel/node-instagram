@@ -220,3 +220,19 @@ Start a fake stream to a endpoint and return new messages found
 * `params.interval` **number** interval to run inside **default** 10000
 * `params.runOnCreation` **boolean** run the request when creating object
 * `params.minTagId` **boolean** instagram min_tag_id to start request
+
+### `instagram.getAuthorizationUrl(redirectUri, options)`
+Get a valid auth url for instagram
+#### Arguments
+* `redirectUri` **string** the url to redirect the user with the code
+* `options` **object**
+* `options.scope` **array|string** the scope to request
+* `options.state` **string** optional state
+* `callback` **function**
+
+### `instagram.authorizeUser(code, redirectUri, [callback])`
+Handle the code returned by instagram an get a user access_token
+#### Arguments
+* `redirectUri` **string** code returned by instagram
+* `redirectUri` **string**
+* `callback` **function**
