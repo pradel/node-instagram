@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/pradel/node-instagram#readme",
   "dependencies": {
-    "@types/request-promise": "4.1.33",
+    "@types/request-promise": "4.1.38",
     "lodash": "^4.17.4",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
