@@ -11,6 +11,10 @@ Instagram api client for node that support promises and typescript.
 
 You can find examples in the [examples](https://github.com/pradel/node-instagram/tree/master/examples) directory.
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/TPcxj3ZMAXdSxzhvJ7SzjaQY/pradel/node-instagram'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/TPcxj3ZMAXdSxzhvJ7SzjaQY/pradel/node-instagram.svg' />
+</a>
+
 ## Install
 
 `npm install --save node-instagram`
