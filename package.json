@@ -49,7 +49,7 @@
     "request-promise": "^4.2.1"
   },
   "devDependencies": {
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "jest": "^21.0.2",
     "nock": "^9.0.14",
     "prettier": "^1.6.1",
