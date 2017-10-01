@@ -120,10 +120,10 @@ describe('Stream', () => {
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
-        .reply(400, 'error');
+        .reply(400, { message: 'error' });
       const stream = instagram.stream(endpoint);
       stream.on('error', err => {
-        expect(err).toEqual('error');
+        expect(err).toMatchSnapshot();
         stream.stop();
         done();
       });

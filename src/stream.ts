@@ -72,7 +72,7 @@ class Stream extends EventEmitter {
     this.instagram
       .get(this.endpoint, params)
       .then(data => {
-        if (data.data.length > 0) {
+        if (data.data && data.data.length > 0) {
           // Only return messages not in cache
           let newPosts = data.data.filter(
             post => this.cache.indexOf(post.id) === -1

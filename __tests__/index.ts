@@ -26,9 +26,9 @@ describe('Instagram', () => {
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
-        .reply(200, 'success');
+        .reply(200, { message: 'success' });
       const result = await instagram.request('GET', endpoint);
-      expect(result).toEqual('success');
+      expect(result).toMatchSnapshot();
     });
 
     it('sould overwrite access_token in query', async () => {
@@ -36,11 +36,11 @@ describe('Instagram', () => {
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'titi' })
-        .reply(200, 'success');
+        .reply(200, { message: 'success' });
       const result = await instagram.request('GET', endpoint, {
         accessToken: 'titi',
       });
-      expect(result).toEqual('success');
+      expect(result).toMatchSnapshot();
     });
 
     it('sould return an error', async () => {
@@ -48,11 +48,11 @@ describe('Instagram', () => {
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
-        .reply(400, 'error');
+        .reply(400, { message: 'error' });
       try {
         await instagram.request('GET', endpoint);
-      } catch (e) {
-        expect(e).toEqual('error');
+      } catch (err) {
+        expect(err).toMatchSnapshot();
       }
     });
 
@@ -61,9 +61,9 @@ describe('Instagram', () => {
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
-        .reply(200, 'success');
+        .reply(200, { message: 'success' });
       instagram.request('GET', endpoint, (err, result) => {
-        expect(result).toEqual('success');
+        expect(result).toMatchSnapshot();
         done();
       });
     });
@@ -73,9 +73,9 @@ describe('Instagram', () => {
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
-        .reply(400, 'error');
+        .reply(400, { message: 'error' });
       instagram.request('GET', endpoint, err => {
-        expect(err).toEqual('error');
+        expect(err).toMatchSnapshot();
         done();
       });
     });
@@ -91,9 +91,9 @@ describe('Instagram', () => {
       nock('https://api.instagram.com')
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
-        .reply(200, 'success');
+        .reply(200, { message: 'success' });
       const result = await instagram.get(endpoint);
-      expect(result).toEqual('success');
+      expect(result).toMatchSnapshot();
     });
   });
 
@@ -108,9 +108,9 @@ describe('Instagram', () => {
         .post(`/v1/${endpoint}`, {
           access_token: 'toto',
         })
-        .reply(200, 'success');
+        .reply(200, { message: 'success' });
       const result = await instagram.post(endpoint);
-      expect(result).toEqual('success');
+      expect(result).toMatchSnapshot();
     });
   });
 
@@ -124,9 +124,9 @@ describe('Instagram', () => {
       nock('https://api.instagram.com')
         .delete(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
-        .reply(200, 'success');
+        .reply(200, { message: 'success' });
       const result = await instagram.delete(endpoint);
-      expect(result).toEqual('success');
+      expect(result).toMatchSnapshot();
     });
   });
 
@@ -166,7 +166,6 @@ describe('Instagram', () => {
     const instagram = new Instagram({
       clientId: 'clientId',
       clientSecret: 'clientSecret',
-      accessToken: 'toto',
     });
     const code = 'my-code';
     const redirectUrl = 'http://localhost:3000';
@@ -180,9 +179,9 @@ describe('Instagram', () => {
           client_secret: 'clientSecret',
           grant_type: 'authorization_code',
         })
-        .reply(200, 'success');
+        .reply(200, { message: 'success' });
       const result = await instagram.authorizeUser(code, redirectUrl);
-      expect(result).toEqual('success');
+      expect(result).toMatchSnapshot();
     });
   });
 });

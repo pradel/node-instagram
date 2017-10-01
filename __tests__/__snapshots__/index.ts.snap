@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Instagram #authorizeUser sould make post request 1`] = `
+Object {
+  "message": "success",
+}
+`;
+
+exports[`Instagram #delete sould make delete request 1`] = `
+Object {
+  "message": "success",
+}
+`;
+
+exports[`Instagram #get sould make get request 1`] = `
+Object {
+  "message": "success",
+}
+`;
+
 exports[`Instagram #getAuthorizationUrl sould generate authorization url 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code"`;
 
 exports[`Instagram #getAuthorizationUrl sould generate pass scope 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code&scope=likes"`;
@@ -7,3 +25,39 @@ exports[`Instagram #getAuthorizationUrl sould generate pass scope 1`] = `"https:
 exports[`Instagram #getAuthorizationUrl sould generate pass scope array 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code&scope=likes+basic"`;
 
 exports[`Instagram #getAuthorizationUrl sould generate pass state 1`] = `"https://api.instagram.com/oauth/authorize/?client_id=clientId&redirect_uri=http://localhost:3000&response_type=code&state=hey"`;
+
+exports[`Instagram #post sould make post request 1`] = `
+Object {
+  "message": "success",
+}
+`;
+
+exports[`Instagram #request sould add access_token in query 1`] = `
+Object {
+  "message": "success",
+}
+`;
+
+exports[`Instagram #request sould call callback with error 1`] = `
+Object {
+  "message": "error",
+}
+`;
+
+exports[`Instagram #request sould call callback with value 1`] = `
+Object {
+  "message": "success",
+}
+`;
+
+exports[`Instagram #request sould overwrite access_token in query 1`] = `
+Object {
+  "message": "success",
+}
+`;
+
+exports[`Instagram #request sould return an error 1`] = `
+Object {
+  "message": "error",
+}
+`;

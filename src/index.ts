@@ -1,5 +1,6 @@
 import { isArray, isFunction } from 'lodash';
-import * as requestPromise from 'request-promise';
+import fetch from 'node-fetch';
+import * as queryString from 'query-string';
 import Stream from './stream';
 
 export interface InstagramConfig {
@@ -115,14 +116,19 @@ class Instagram {
     redirectUri: string,
     callback?: (err?: any, data?: any) => void
   ): Promise<any> {
-    return this.request('POST', 'oauth/access_token', {
-      uriAbsolute: true,
-      code,
-      redirect_uri: redirectUri,
-      client_id: this.config.clientId,
-      client_secret: this.config.clientSecret,
-      grant_type: 'authorization_code',
-    });
+    return this.request(
+      'POST',
+      'oauth/access_token',
+      {
+        uriAbsolute: true,
+        code,
+        redirect_uri: redirectUri,
+        client_id: this.config.clientId,
+        client_secret: this.config.clientSecret,
+        grant_type: 'authorization_code',
+      },
+      callback
+    );
   }
 
   /**
@@ -133,49 +139,50 @@ class Instagram {
    * @param callback
    * @private
    */
-  private request(
+  private async request(
     type: string,
     endpoint: string,
     options: any = {},
     callback?: (err?: any, data?: any) => void
   ): Promise<any> {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    let key = 'qs';
-    let uri = `${this.apiUrl}${endpoint}`;
-    options.access_token = this.config.accessToken;
-    if (options.accessToken) {
-      options.access_token = options.accessToken;
-      delete options.accessToken;
-    }
-    if (options.uriAbsolute) {
-      uri = `${this.baseApiUrl}/${endpoint}`;
-      delete options.uriAbsolute;
-    }
-    if (type === 'POST') {
-      key = 'form';
-    }
-    return requestPromise({
-      method: type,
-      uri,
-      [key]: { ...options },
-      json: true,
-    })
-      .then(data => {
-        if (isFunction(callback)) {
-          callback(null, data);
-        }
-        return data;
-      })
-      .catch(err => {
-        const error = err.error || err;
-        if (isFunction(callback)) {
-          return callback(error);
-        }
-        throw error;
+    try {
+      if (isFunction(options)) {
+        callback = options;
+        options = {};
+      }
+      let uri = `${this.apiUrl}${endpoint}`;
+      options.access_token = this.config.accessToken;
+      if (options.accessToken) {
+        options.access_token = options.accessToken;
+        delete options.accessToken;
+      }
+      if (options.uriAbsolute) {
+        uri = `${this.baseApiUrl}/${endpoint}`;
+        delete options.uriAbsolute;
+      }
+      if (type === 'GET' || type === 'DELETE') {
+        uri += `?${queryString.stringify(options)}`;
+        options = null;
+      }
+      const response = await fetch(uri, {
+        method: type,
+        body: options ? JSON.stringify(options) : null,
       });
+      const json = await response.json();
+      if (!response.ok) {
+        throw json;
+      }
+      if (isFunction(callback)) {
+        callback(null, json);
+      }
+      return json;
+    } catch (err) {
+      const error = err.error || err;
+      if (isFunction(callback)) {
+        return callback(error);
+      }
+      throw error;
+    }
   }
 }
 

@@ -1,17 +1,15 @@
 const hour = 60 * 60 * 1000;
 
 function getOldDate() {
-  let oldDate = new Date();
+  const oldDate = new Date();
   oldDate.setTime(oldDate.getTime() - hour);
-  oldDate = Math.round(oldDate / 1000);
-  return oldDate;
+  return Math.round(oldDate / 1000);
 }
 
 function getNewDate() {
-  let oldDate = new Date();
+  const oldDate = new Date();
   oldDate.setTime(oldDate.getTime() + hour);
-  oldDate = Math.round(oldDate / 1000);
-  return oldDate;
+  return Math.round(oldDate / 1000);
 }
 
 export function generateOldMessage(text) {
