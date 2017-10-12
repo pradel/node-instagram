@@ -150,8 +150,12 @@ class Instagram {
         callback = options;
         options = {};
       }
+      let stringify = true;
+      const headers = {};
       let uri = `${this.apiUrl}${endpoint}`;
-      options.access_token = this.config.accessToken;
+      if (this.config.accessToken) {
+        options.access_token = this.config.accessToken;
+      }
       if (options.accessToken) {
         options.access_token = options.accessToken;
         delete options.accessToken;
@@ -163,10 +167,15 @@ class Instagram {
       if (type === 'GET' || type === 'DELETE') {
         uri += `?${queryString.stringify(options)}`;
         options = null;
+      } else if (type === 'POST') {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+        options = queryString.stringify(options);
+        stringify = false;
       }
       const response = await fetch(uri, {
         method: type,
-        body: options ? JSON.stringify(options) : null,
+        body: options && stringify ? JSON.stringify(options) : options || null,
+        headers,
       });
       const json = await response.json();
       if (!response.ok) {

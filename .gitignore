@@ -2,3 +2,4 @@ node_modules
 lib
 lib-test
 coverage
+examples/**/yarn.lock

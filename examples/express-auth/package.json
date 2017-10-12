@@ -2,6 +2,6 @@
   "name": "node-instagram-express-auth",
   "private": true,
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.16.2"
   }
 }
