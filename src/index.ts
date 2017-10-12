@@ -168,7 +168,8 @@ class Instagram {
         uri += `?${queryString.stringify(options)}`;
         options = null;
       } else if (type === 'POST') {
-        headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+        headers['Content-Type'] =
+          'application/x-www-form-urlencoded;charset=UTF-8';
         options = queryString.stringify(options);
         stringify = false;
       }
