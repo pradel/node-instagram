@@ -1,8 +1,8 @@
 [![npm version](https://badge.fury.io/js/node-instagram.svg)](https://badge.fury.io/js/node-instagram)
+[![npm](https://img.shields.io/npm/dm/node-instagram.svg)](https://www.npmjs.com/package/node-instagram)
 [![Build Status](https://travis-ci.org/pradel/node-instagram.svg?branch=master)](https://travis-ci.org/pradel/node-instagram)
 [![Coverage Status](https://coveralls.io/repos/github/pradel/node-instagram/badge.svg?branch=master)](https://coveralls.io/github/pradel/node-instagram?branch=master)
 [![Dependency Status](https://david-dm.org/pradel/node-instagram.svg)](https://david-dm.org/pradel/node-instagram)
-[![devDependency Status](https://david-dm.org/pradel/node-instagram/dev-status.svg)](https://david-dm.org/pradel/node-instagram#info=devDependencies)
 [![Known Vulnerabilities](https://snyk.io/test/npm/node-instagram/badge.svg)](https://snyk.io/test/npm/node-instagram)
 
 # node-instagram
