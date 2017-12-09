@@ -1,4 +1,5 @@
 import * as EventEmitter from 'events';
+// tslint:disable-next-line no-implicit-dependencies
 import * as nock from 'nock';
 import Instagram from '../src/index';
 import Stream from '../src/stream';

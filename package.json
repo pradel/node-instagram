@@ -17,8 +17,8 @@
     "test": "npm run build && npm run testonly && npm run lint && npm run prettier-diff",
     "testonly": "jest --coverage",
     "lint": "tslint \"{src,__tests__}/**/*.ts\"",
-    "format": "prettier --single-quote --trailing-comma es5 --parser typescript --write \"{src,__tests__}/**/*.ts\"",
-    "prettier-diff": "prettier --single-quote --trailing-comma es5 --parser typescript --list-different \"{src,__tests__}/**/*.ts\""
+    "format": "prettier --single-quote --trailing-comma es5 --write \"{src,__tests__}/**/*.ts\" \"README.md\"",
+    "prettier-diff": "prettier --single-quote --trailing-comma es5 --list-different \"{src,__tests__}/**/*.ts\" \"README.md\""
   },
   "jest": {
     "transform": {
@@ -46,19 +46,19 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "node-fetch": "^2.0.0-alpha.9",
-    "query-string": "^5.0.0"
+    "query-string": "^5.0.1"
   },
   "devDependencies": {
-    "@types/node": "^8.0.31",
+    "@types/node": "^8.0.57",
     "@types/node-fetch": "^1.6.7",
-    "@types/query-string": "^5.0.0",
+    "@types/query-string": "^5.0.1",
     "coveralls": "^3.0.0",
     "jest": "^21.2.1",
-    "nock": "^9.0.14",
-    "prettier": "^1.7.3",
-    "ts-jest": "^21.0.1",
-    "tslint": "^5.7.0",
-    "tslint-config-prettier": "^1.5.0",
+    "nock": "^9.1.4",
+    "prettier": "^1.9.1",
+    "ts-jest": "^21.2.4",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
     "typescript": "^2.5.3"
   }
 }
