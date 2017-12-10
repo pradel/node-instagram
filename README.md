@@ -122,67 +122,81 @@ To see all endpoint available take a look at [instagram developer documentation]
 
 ```javascript
 // Get information about current user
-instagram.get('users/self', { access_token: accessToken }, (err, data) => {
+instagram.get('users/self', (err, data) => {
   console.log(data);
 });
 
 // Get information about a user.
-instagram.get('users/:user-id', { access_token: accessToken }).then((data) => {
+instagram.get('users/:user-id').then((data) => {
   console.log(data);
 });
 
 // Get the most recent media published by the owner of the access_token.
-instagram.get('users/self/media/recent', { access_token: accessToken }).then((data) => {
+instagram.get('users/self/media/recent').then((data) => {
   console.log(data);
 });
 
 // Get the most recent media published by a user.
-instagram.get('users/:user-id/media/recent', { access_token: accessToken }).then((data) => {
+instagram.get('users/:user-id/media/recent').then((data) => {
   console.log(data);
 });
 
 // Get the list of recent media liked by the owner of the access_token.
-instagram.get('users/self/media/liked', { access_token: accessToken }).then((data) => {
+instagram.get('users/self/media/liked').then((data) => {
   console.log(data);
 });
 
 // Get a list of users matching the query.
-instagram.get('users/search', { access_token: accessToken, q: 'paris' }).then((data) => {
+instagram.get('users/search').then((data) => {
   console.log(data);
 });
 
 // Get information about this media.
-instagram.get('media/:media-id', { access_token: accessToken }).then((data) => {
+instagram.get('media/:media-id').then((data) => {
   console.log(data);
 });
 
 // Get a list of users who have liked this media.
-instagram.get('media/:media-id/likes', { access_token: accessToken }).then((data) => {
+instagram.get('media/:media-id/likes').then((data) => {
   console.log(data);
 });
 
 // Set a like on this media by the currently authenticated user.
-instagram.post('media/:media-id/likes', { access_token: accessToken }).then((data) => {
+instagram.post('media/:media-id/likes').then((data) => {
   console.log(data);
 });
 
 // Remove a like on this media by the currently authenticated user.
-instagram.delete('media/:media-id/likes', { access_token: accessToken }).then((data) => {
+instagram.delete('media/:media-id/likes').then((data) => {
   console.log(data);
 });
 
 // Get information about a tag object.
-instagram.get('tags/:tag-name', { access_token: accessToken }).then((data) => {
+instagram.get('tags/:tag-name').then((data) => {
   console.log(data);
 });
 
 // Get a list of recently tagged media.
-instagram.get('tags/:tag-name/media/recent', { access_token: accessToken }).then((data) => {
+instagram.get('tags/:tag-name/media/recent').then((data) => {
   console.log(data);
 });
 
 // Search for tags by name.
-instagram.get('tags/search', { access_token: accessToken, q: 'paris' }).then((data) => {
+instagram.get('tags/search, {'q: 'paris' }).then((data) => {
+  console.log(data);
+});
+
+```
+It is also possible to send the access_token along as a parameter when you call an endpoint. For example:
+
+```javascript
+// Get information about current user
+instagram.get('users/self', { access_token: accessToken }, (err, data) => {
+  console.log(data);
+});
+
+// Search for tags by name.
+instagram.get('tags/search, { access_token: accessToken, 'q: 'paris' }).then((data) => {
   console.log(data);
 });
 ```
