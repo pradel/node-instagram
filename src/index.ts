@@ -92,8 +92,9 @@ class Instagram {
    * @param redirectUri
    */
   public getAuthorizationUrl(redirectUri: string, options: any = {}): string {
-    let authorizationUrl = `${this.baseApiUrl}/oauth/authorize/?client_id=${this
-      .config.clientId}&redirect_uri=${redirectUri}&response_type=code`;
+    let authorizationUrl = `${this.baseApiUrl}/oauth/authorize/?client_id=${
+      this.config.clientId
+    }&redirect_uri=${redirectUri}&response_type=code`;
     if (options.scope) {
       if (isArray(options.scope)) {
         options.scope = options.scope.join('+');

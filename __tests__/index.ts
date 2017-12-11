@@ -1,3 +1,4 @@
+// tslint:disable-next-line no-implicit-dependencies
 import * as nock from 'nock';
 import Instagram from '../src/index';
 

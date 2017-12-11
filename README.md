@@ -11,10 +11,6 @@ Instagram api client for node that support promises and typescript.
 
 You can find examples in the [examples](https://github.com/pradel/node-instagram/tree/master/examples) directory.
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/TPcxj3ZMAXdSxzhvJ7SzjaQY/pradel/node-instagram'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/TPcxj3ZMAXdSxzhvJ7SzjaQY/pradel/node-instagram.svg' />
-</a>
-
 ## Install
 
 `npm install --save node-instagram`
@@ -65,12 +61,12 @@ This lib have a stream method. It is used to receive new post as events. Streami
 ```javascript
 const stream = instagram.stream('tags/:tag-name/media/recent');
 
-stream.on('messages', (messages) => {
+stream.on('messages', messages => {
   console.log(messages);
 });
 
 // handle stream error
-stream.on('error', (err) => {
+stream.on('error', err => {
   // An error occur
   console.log(err);
 });
@@ -79,8 +75,9 @@ stream.on('error', (err) => {
 ## Server side authentication
 
 Two steps are needed in order to receive an access_token for a user.
-- Get an authentication url from instagram and redirect the user to it
-- Exchange the code for an access_token
+
+* Get an authentication url from instagram and redirect the user to it
+* Exchange the code for an access_token
 
 You can find a working example with express [here](https://github.com/pradel/node-instagram/tree/master/examples/express-auth).
 
@@ -94,12 +91,17 @@ const redirectUri = 'http://localhost:3000/auth/instagram/callback';
 
 // First redirect user to instagram oauth
 app.get('/auth/instagram', (req, res) => {
-  res.redirect(instagram.getAuthorizationUrl(redirectUri, {
-    // an array of scopes
-    scope: ['basic', 'likes'] },
-    // an optional state
-    state: 'your state',
-  ));
+  res.redirect(
+    instagram.getAuthorizationUrl(
+      redirectUri,
+      {
+        // an array of scopes
+        scope: ['basic', 'likes'],
+      },
+      // an optional state
+      (state: 'your state')
+    )
+  );
 });
 
 // Handle auth code and get access_token for user
@@ -127,57 +129,57 @@ instagram.get('users/self', (err, data) => {
 });
 
 // Get information about a user.
-instagram.get('users/:user-id').then((data) => {
+instagram.get('users/:user-id').then(data => {
   console.log(data);
 });
 
 // Get the most recent media published by the owner of the access_token.
-instagram.get('users/self/media/recent').then((data) => {
+instagram.get('users/self/media/recent').then(data => {
   console.log(data);
 });
 
 // Get the most recent media published by a user.
-instagram.get('users/:user-id/media/recent').then((data) => {
+instagram.get('users/:user-id/media/recent').then(data => {
   console.log(data);
 });
 
 // Get the list of recent media liked by the owner of the access_token.
-instagram.get('users/self/media/liked').then((data) => {
+instagram.get('users/self/media/liked').then(data => {
   console.log(data);
 });
 
 // Get a list of users matching the query.
-instagram.get('users/search').then((data) => {
+instagram.get('users/search', { q: 'paris' }).then(data => {
   console.log(data);
 });
 
 // Get information about this media.
-instagram.get('media/:media-id').then((data) => {
+instagram.get('media/:media-id').then(data => {
   console.log(data);
 });
 
 // Get a list of users who have liked this media.
-instagram.get('media/:media-id/likes').then((data) => {
+instagram.get('media/:media-id/likes').then(data => {
   console.log(data);
 });
 
 // Set a like on this media by the currently authenticated user.
-instagram.post('media/:media-id/likes').then((data) => {
+instagram.post('media/:media-id/likes').then(data => {
   console.log(data);
 });
 
 // Remove a like on this media by the currently authenticated user.
-instagram.delete('media/:media-id/likes').then((data) => {
+instagram.delete('media/:media-id/likes').then(data => {
   console.log(data);
 });
 
 // Get information about a tag object.
-instagram.get('tags/:tag-name').then((data) => {
+instagram.get('tags/:tag-name').then(data => {
   console.log(data);
 });
 
 // Get a list of recently tagged media.
-instagram.get('tags/:tag-name/media/recent').then((data) => {
+instagram.get('tags/:tag-name/media/recent').then(data => {
   console.log(data);
 });
 
@@ -199,40 +201,56 @@ instagram.get('users/self', { access_token: accessToken }, (err, data) => {
 instagram.get('tags/search, { access_token: accessToken, 'q: 'paris' }).then((data) => {
   console.log(data);
 });
+
 ```
 
 ## Api
 
 ### `const instagram = new Instagram(config)`
+
 Create a new Instagram instance
+
 #### Arguments
+
 * `clientId` **string**
 * `accessToken` **string**
 
 ### `instagram.get(endpoint, [params, callback])`
+
 Make a GET request on endpoint
+
 #### Arguments
+
 * `endpoint` **string**
 * `params` **object**
 * `callback` **function**
 
 ### `instagram.post(endpoint, [params, callback])`
+
 Make a POST request on endpoint
+
 #### Arguments
+
 * `endpoint` **string**
 * `params` **object**
 * `callback` **function**
 
 ### `instagram.delete(endpoint, [params, callback])`
+
 Make a DELETE request on endpoint
+
 #### Arguments
+
 * `endpoint` **string**
 * `params` **object**
 * `callback` **function**
 
 ### `instagram.stream(endpoint, params)`
+
 Start a fake stream to a endpoint and return new messages found
+
 #### Arguments
+
 * `endpoint` **string**
 * `params` **object**
 * `params.interval` **number** interval to run inside **default** 10000
@@ -240,8 +258,11 @@ Start a fake stream to a endpoint and return new messages found
 * `params.minTagId` **boolean** instagram min_tag_id to start request
 
 ### `instagram.getAuthorizationUrl(redirectUri, options)`
+
 Get a valid auth url for instagram
+
 #### Arguments
+
 * `redirectUri` **string** the url to redirect the user with the code
 * `options` **object**
 * `options.scope` **array|string** the scope to request
@@ -249,8 +270,15 @@ Get a valid auth url for instagram
 * `callback` **function**
 
 ### `instagram.authorizeUser(code, redirectUri, [callback])`
+
 Handle the code returned by instagram an get a user access_token
+
 #### Arguments
+
 * `redirectUri` **string** code returned by instagram
 * `redirectUri` **string**
 * `callback` **function**
+
+## License
+
+MIT © [Léo Pradel](https://www.leopradel.com/)
