@@ -3,3 +3,4 @@ lib
 lib-test
 coverage
 examples/**/yarn.lock
+package-lock.json

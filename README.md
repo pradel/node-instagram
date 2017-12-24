@@ -189,6 +189,22 @@ instagram.get('tags/search', { q: 'paris' }).then(data => {
 });
 ```
 
+It is also possible to send the access_token along as a parameter when you call an endpoint. For example:
+
+```javascript
+// Get information about current user
+instagram.get('users/self', { access_token: accessToken }, (err, data) => {
+  console.log(data);
+});
+
+// Search for tags by name.
+instagram
+  .get('tags/search', { access_token: accessToken, q: 'paris' })
+  .then(data => {
+    console.log(data);
+  });
+```
+
 ## Api
 
 ### `const instagram = new Instagram(config)`
