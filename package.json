@@ -56,7 +56,7 @@
     "jest": "22.4.2",
     "nock": "9.2.1",
     "prettier": "1.10.2",
-    "ts-jest": "22.0.4",
+    "ts-jest": "22.4.0",
     "tslint": "5.9.1",
     "tslint-config-prettier": "1.8.0",
     "typescript": "2.7.2"
