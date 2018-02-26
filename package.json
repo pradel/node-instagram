@@ -54,7 +54,7 @@
     "@types/query-string": "5.1.0",
     "coveralls": "3.0.0",
     "jest": "22.4.2",
-    "nock": "9.1.6",
+    "nock": "9.2.1",
     "prettier": "1.10.2",
     "ts-jest": "22.0.4",
     "tslint": "5.9.1",
