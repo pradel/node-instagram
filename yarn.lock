@@ -10,9 +10,9 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@types/node-fetch@1.6.9":
-  version "1.6.9"
-  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-1.6.9.tgz#a750fb0f4cf2960bf72b462e4c86908022dd69c5"
+"@types/node-fetch@2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.1.2.tgz#8c5da14d70321e4c4ecd5db668e3f93cf6c7399f"
   dependencies:
     "@types/node" "*"
 
