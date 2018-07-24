@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/node": "9.6.23",
-    "@types/node-fetch": "1.6.9",
+    "@types/node-fetch": "2.1.2",
     "@types/query-string": "5.1.0",
     "coveralls": "3.0.2",
     "jest": "23.4.1",
