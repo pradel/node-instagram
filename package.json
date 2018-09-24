@@ -40,7 +40,7 @@
     "query-string": "^6.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.2",
+    "@types/jest": "23.3.2",
     "@types/node": "9.6.32",
     "@types/node-fetch": "2.1.2",
     "@types/query-string": "6.1.0",
