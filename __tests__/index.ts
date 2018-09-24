@@ -4,7 +4,7 @@ import Instagram from '../src/index';
 
 describe('Instagram', () => {
   it('should be a class', () => {
-    const instagram = new Instagram({});
+    const instagram = new Instagram({} as any);
     expect(instagram instanceof Instagram).toBeTruthy();
   });
 
@@ -12,15 +12,15 @@ describe('Instagram', () => {
     const instagram = new Instagram({
       clientId: 'toto',
       accessToken: 'toto2',
-    });
-    expect(instagram.config.clientId).toEqual('toto');
-    expect(instagram.config.accessToken).toEqual('toto2');
+    } as any);
+    expect((instagram as any).config.clientId).toEqual('toto');
+    expect((instagram as any).config.accessToken).toEqual('toto2');
   });
 
   describe('#request', () => {
     const instagram = new Instagram({
       accessToken: 'toto',
-    });
+    } as any);
 
     it('sould add access_token in query', async () => {
       const endpoint = 'tag/sunset';
@@ -28,7 +28,7 @@ describe('Instagram', () => {
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
         .reply(200, { message: 'success' });
-      const result = await instagram.request('GET', endpoint);
+      const result = await (instagram as any).request('GET', endpoint);
       expect(result).toMatchSnapshot();
     });
 
@@ -38,7 +38,7 @@ describe('Instagram', () => {
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'titi' })
         .reply(200, { message: 'success' });
-      const result = await instagram.request('GET', endpoint, {
+      const result = await (instagram as any).request('GET', endpoint, {
         accessToken: 'titi',
       });
       expect(result).toMatchSnapshot();
@@ -51,7 +51,7 @@ describe('Instagram', () => {
         .query({ access_token: 'toto' })
         .reply(400, { message: 'error' });
       try {
-        await instagram.request('GET', endpoint);
+        await (instagram as any).request('GET', endpoint);
       } catch (err) {
         expect(err).toMatchSnapshot();
       }
@@ -63,7 +63,7 @@ describe('Instagram', () => {
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
         .reply(200, { message: 'success' });
-      instagram.request('GET', endpoint, (err, result) => {
+      (instagram as any).request('GET', endpoint, (err, result) => {
         expect(result).toMatchSnapshot();
         done();
       });
@@ -75,7 +75,7 @@ describe('Instagram', () => {
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
         .reply(400, { message: 'error' });
-      instagram.request('GET', endpoint, err => {
+      (instagram as any).request('GET', endpoint, err => {
         expect(err).toMatchSnapshot();
         done();
       });
@@ -85,7 +85,7 @@ describe('Instagram', () => {
   describe('#get', () => {
     const instagram = new Instagram({
       accessToken: 'toto',
-    });
+    } as any);
 
     it('sould make get request', async () => {
       const endpoint = 'tag/sunset';
@@ -101,7 +101,7 @@ describe('Instagram', () => {
   describe('#post', () => {
     const instagram = new Instagram({
       accessToken: 'toto',
-    });
+    } as any);
 
     it('sould make post request', async () => {
       const endpoint = 'tag/sunset';
@@ -118,7 +118,7 @@ describe('Instagram', () => {
   describe('#delete', () => {
     const instagram = new Instagram({
       accessToken: 'toto',
-    });
+    } as any);
 
     it('sould make delete request', async () => {
       const endpoint = 'tag/sunset';
@@ -135,7 +135,7 @@ describe('Instagram', () => {
     const instagram = new Instagram({
       clientId: 'clientId',
       accessToken: 'toto',
-    });
+    } as any);
     const redirectUrl = 'http://localhost:3000';
 
     it('sould generate authorization url', async () => {
@@ -167,7 +167,7 @@ describe('Instagram', () => {
     const instagram = new Instagram({
       clientId: 'clientId',
       clientSecret: 'clientSecret',
-    });
+    } as any);
     const code = 'my-code';
     const redirectUrl = 'http://localhost:3000';
 
