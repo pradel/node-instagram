@@ -21,19 +21,10 @@
     "prettier-diff": "prettier --single-quote --trailing-comma es5 --list-different \"{src,__tests__}/**/*.ts\" \"README.md\""
   },
   "jest": {
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "preset": "ts-jest",
     "testPathIgnorePatterns": [
       "__tests__/utils.ts"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "mapCoverage": true
+    ]
   },
   "repository": {
     "type": "git",
@@ -49,6 +40,7 @@
     "query-string": "^6.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.2",
     "@types/node": "9.6.32",
     "@types/node-fetch": "2.1.2",
     "@types/query-string": "6.1.0",

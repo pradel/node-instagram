@@ -9,7 +9,7 @@ describe('Stream', () => {
   const endpoint = 'tags/paris/media/recent';
   const instagram = new Instagram({
     accessToken: 'toto',
-  });
+  } as any);
 
   it('should be a class', () => {
     const stream = instagram.stream(endpoint, { runOnCreation: false });
@@ -27,7 +27,7 @@ describe('Stream', () => {
       runOnCreation: false,
       interval,
     });
-    expect(stream.interval).toEqual(interval);
+    expect((stream as any).interval).toEqual(interval);
   });
 
   it('should set minTagId', () => {
@@ -36,7 +36,7 @@ describe('Stream', () => {
       runOnCreation: false,
       minTagId,
     });
-    expect(stream.minTagId).toEqual(minTagId);
+    expect((stream as any).minTagId).toEqual(minTagId);
   });
 
   it('should overwrite accessToken', done => {
@@ -59,9 +59,9 @@ describe('Stream', () => {
   describe('#start', () => {
     it('should call makeRequest', () => {
       const stream = instagram.stream(endpoint, { runOnCreation: false });
-      stream.makeRequest = jest.fn();
+      (stream as any).makeRequest = jest.fn();
       stream.start();
-      expect(stream.makeRequest.mock.calls.length).toEqual(1);
+      expect((stream as any).makeRequest.mock.calls.length).toEqual(1);
       stream.stop();
     });
 
@@ -70,10 +70,10 @@ describe('Stream', () => {
         runOnCreation: false,
         interval: 500,
       });
-      stream.makeRequest = jest.fn();
+      (stream as any).makeRequest = jest.fn();
       stream.start();
       setTimeout(() => {
-        expect(stream.makeRequest.mock.calls.length).toEqual(5);
+        expect((stream as any).makeRequest.mock.calls.length).toEqual(5);
         stream.stop();
         done();
       }, 2500);
@@ -86,13 +86,13 @@ describe('Stream', () => {
         runOnCreation: false,
         interval: 500,
       });
-      stream.makeRequest = jest.fn();
+      (stream as any).makeRequest = jest.fn();
       stream.start();
       setTimeout(() => {
-        expect(stream.makeRequest.mock.calls.length).toEqual(5);
+        expect((stream as any).makeRequest.mock.calls.length).toEqual(5);
         stream.stop();
         setTimeout(() => {
-          expect(stream.makeRequest.mock.calls.length).toEqual(5);
+          expect((stream as any).makeRequest.mock.calls.length).toEqual(5);
           done();
         }, 1000);
       }, 2500);
@@ -158,7 +158,7 @@ describe('Stream', () => {
         });
       const stream = instagram.stream(endpoint);
       stream.on('messages', messages => {
-        expect(stream.cache).toEqual(data.map(val => val.id));
+        expect((stream as any).cache).toEqual(data.map(val => (val as any).id));
         expect(messages).toEqual(data);
         stream.stop();
         done();
@@ -270,7 +270,7 @@ describe('Stream', () => {
         stream.stop();
         expect(scope.isDone()).toBeTruthy();
         expect(callSpy.mock.calls.length).toEqual(1);
-        expect(stream.cache).toEqual([]);
+        expect((stream as any).cache).toEqual([]);
         done();
       }, 1000);
     });
