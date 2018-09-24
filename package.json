@@ -51,7 +51,7 @@
   "devDependencies": {
     "@types/node": "9.6.32",
     "@types/node-fetch": "2.1.2",
-    "@types/query-string": "5.1.0",
+    "@types/query-string": "6.1.0",
     "coveralls": "3.0.2",
     "jest": "23.6.0",
     "nock": "10.0.0",
