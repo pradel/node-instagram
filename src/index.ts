@@ -1,5 +1,5 @@
-import isArray = require('lodash/isArray');
-import isFunction = require('lodash/isFunction');
+import isArray from 'lodash/isArray';
+import isFunction from 'lodash/isFunction';
 import fetch from 'node-fetch';
 import * as queryString from 'query-string';
 import Stream from './stream';
