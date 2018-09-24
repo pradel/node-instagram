@@ -1,4 +1,4 @@
-import * as EventEmitter from 'events';
+import EventEmitter from 'events';
 import Instagram from './index';
 
 class Stream extends EventEmitter {

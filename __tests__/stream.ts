@@ -1,6 +1,6 @@
-import * as EventEmitter from 'events';
+import EventEmitter from 'events';
 // tslint:disable-next-line no-implicit-dependencies
-import * as nock from 'nock';
+import nock from 'nock';
 import Instagram from '../src/index';
 import Stream from '../src/stream';
 import { generateNewMessage, generateOldMessage } from './utils';
