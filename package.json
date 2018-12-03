@@ -40,7 +40,7 @@
     "query-string": "^6.1.0"
   },
   "devDependencies": {
-    "@types/jest": "23.3.9",
+    "@types/jest": "23.3.10",
     "@types/lodash": "4.14.118",
     "@types/nock": "9.3.0",
     "@types/node": "10.12.10",
