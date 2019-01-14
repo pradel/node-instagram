@@ -7,7 +7,7 @@ import Stream from './stream';
 export interface InstagramConfig {
   clientId: string;
   clientSecret: string;
-  accessToken: string;
+  accessToken?: string;
   apiVersion?: string;
 }
 
