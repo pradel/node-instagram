@@ -1,5 +1,5 @@
 // tslint:disable-next-line no-implicit-dependencies
-import nock from 'nock';
+import * as nock from 'nock';
 import Instagram from '../src/index';
 
 describe('Instagram', () => {
@@ -63,7 +63,7 @@ describe('Instagram', () => {
         .get(`/v1/${endpoint}`)
         .query({ access_token: 'toto' })
         .reply(200, { message: 'success' });
-      (instagram as any).request('GET', endpoint, (err, result) => {
+      (instagram as any).request('GET', endpoint, (_, result) => {
         expect(result).toMatchSnapshot();
         done();
       });
