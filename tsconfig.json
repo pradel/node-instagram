@@ -6,10 +6,8 @@
     "sourceMap": true,
     "removeComments": true,
     "declaration": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "noUnusedParameters": true,
+    "noUnusedLocals": true
   },
-  "include": [
-    "./src/**/*"
-  ]
+  "include": ["./src/**/*"]
 }
