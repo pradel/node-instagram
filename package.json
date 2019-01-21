@@ -13,7 +13,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc --noUnusedParameters --noUnusedLocals",
+    "build": "tsc",
     "test": "npm run build && npm run testonly && npm run lint && npm run prettier-diff",
     "testonly": "jest --coverage",
     "lint": "tslint \"{src,__tests__}/**/*.ts\"",
@@ -36,8 +36,8 @@
   "homepage": "https://github.com/pradel/node-instagram#readme",
   "dependencies": {
     "lodash": "^4.17.11",
-    "node-fetch": "^2.2.0",
-    "query-string": "^6.1.0"
+    "node-fetch": "^2.3.0",
+    "query-string": "^6.2.0"
   },
   "devDependencies": {
     "@types/jest": "23.3.13",

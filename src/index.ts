@@ -1,8 +1,9 @@
-import isArray from 'lodash/isArray';
-import isFunction from 'lodash/isFunction';
+// tslint:disable no-var-requires
 import fetch from 'node-fetch';
 import * as queryString from 'query-string';
 import Stream from './stream';
+const isArray = require('lodash/isArray');
+const isFunction = require('lodash/isFunction');
 
 export interface InstagramConfig {
   clientId: string;
