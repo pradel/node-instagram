@@ -44,7 +44,7 @@
     "@types/lodash": "4.14.136",
     "@types/nock": "9.3.1",
     "@types/node": "10.14.13",
-    "@types/node-fetch": "2.3.7",
+    "@types/node-fetch": "2.5.0",
     "@types/query-string": "6.2.0",
     "coveralls": "3.0.5",
     "jest": "23.6.0",
