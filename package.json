@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@types/jest": "23.3.14",
-    "@types/lodash": "4.14.141",
+    "@types/lodash": "4.14.144",
     "@types/nock": "9.3.1",
     "@types/node": "10.14.20",
     "@types/node-fetch": "2.5.2",
