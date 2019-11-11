@@ -43,7 +43,7 @@
     "@types/jest": "23.3.14",
     "@types/lodash": "4.14.146",
     "@types/nock": "9.3.1",
-    "@types/node": "10.17.3",
+    "@types/node": "10.17.5",
     "@types/node-fetch": "2.5.3",
     "@types/query-string": "6.2.0",
     "coveralls": "3.0.7",
