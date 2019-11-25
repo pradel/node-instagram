@@ -46,7 +46,7 @@
     "@types/node": "10.17.5",
     "@types/node-fetch": "2.5.4",
     "@types/query-string": "6.2.0",
-    "coveralls": "3.0.7",
+    "coveralls": "3.0.8",
     "jest": "23.6.0",
     "nock": "10.0.6",
     "prettier": "1.17.1",
