@@ -7,7 +7,7 @@
 
 # node-instagram
 
-Instagram api client for node that support promises and typescript.
+Instagram api client for node that supports promises and typescript.
 
 You can find examples in the [examples](https://github.com/pradel/node-instagram/tree/master/examples) directory.
 
