@@ -7,6 +7,10 @@
 
 # node-instagram
 
+> ⚠️ The legacy Instagram API is deprecated and will be disabled on June 29, 2020.
+> More information https://www.instagram.com/developer.
+> You should use the new Instagram Graph API.
+
 Instagram api client for node that supports promises and typescript.
 
 You can find examples in the [examples](https://github.com/pradel/node-instagram/tree/master/examples) directory.
@@ -20,19 +24,19 @@ You can find examples in the [examples](https://github.com/pradel/node-instagram
 ## Usage
 
 ```javascript
-import Instagram from 'node-instagram';
+import Instagram from "node-instagram";
 // or
-const Instagram = require('node-instagram').default;
+const Instagram = require("node-instagram").default;
 
 // Create a new instance.
 const instagram = new Instagram({
-  clientId: 'your-client-id',
-  clientSecret: 'your-client-secret',
-  accessToken: 'user-access-token',
+  clientId: "your-client-id",
+  clientSecret: "your-client-secret",
+  accessToken: "user-access-token"
 });
 
 // You can use callbacks or promises
-instagram.get('users/self', (err, data) => {
+instagram.get("users/self", (err, data) => {
   if (err) {
     // an error occured
     console.log(err);
@@ -42,12 +46,12 @@ instagram.get('users/self', (err, data) => {
 });
 
 // Get information about the owner of the access_token.
-const data = await instagram.get('users/self');
+const data = await instagram.get("users/self");
 console.log(data);
 
 // Handle errors
 instagram
-  .get('tags/paris')
+  .get("tags/paris")
   .then(data => {
     console.log(data);
   })
@@ -62,14 +66,14 @@ instagram
 This lib have a stream method. It is used to receive new post as events. Streaming **can only be used** on all endpoints taking MIN_TAG_ID as parameter. Inside it is running setInterval.
 
 ```javascript
-const stream = instagram.stream('tags/:tag-name/media/recent');
+const stream = instagram.stream("tags/:tag-name/media/recent");
 
-stream.on('messages', messages => {
+stream.on("messages", messages => {
   console.log(messages);
 });
 
 // handle stream error
-stream.on('error', err => {
+stream.on("error", err => {
   // An error occur
   console.log(err);
 });
@@ -90,25 +94,25 @@ To see more info about server side authentication take a look at the [instagram 
 // Example with express
 
 // Your redirect url where you will handle the code param
-const redirectUri = 'http://localhost:3000/auth/instagram/callback';
+const redirectUri = "http://localhost:3000/auth/instagram/callback";
 
 // First redirect user to instagram oauth
-app.get('/auth/instagram', (req, res) => {
+app.get("/auth/instagram", (req, res) => {
   res.redirect(
     instagram.getAuthorizationUrl(
       redirectUri,
       {
         // an array of scopes
-        scope: ['basic', 'likes'],
+        scope: ["basic", "likes"]
       },
       // an optional state
-      (state: 'your state')
+      (state: "your state")
     )
   );
 });
 
 // Handle auth code and get access_token for user
-app.get('/auth/instagram/callback', async (req, res) => {
+app.get("/auth/instagram/callback", async (req, res) => {
   try {
     // The code from the request, here req.query.code for express
     const code = req.query.code;
@@ -127,67 +131,67 @@ To see all endpoint available take a look at [instagram developer documentation]
 
 ```javascript
 // Get information about current user
-instagram.get('users/self', (err, data) => {
+instagram.get("users/self", (err, data) => {
   console.log(data);
 });
 
 // Get information about a user.
-instagram.get('users/:user-id').then(data => {
+instagram.get("users/:user-id").then(data => {
   console.log(data);
 });
 
 // Get the most recent media published by the owner of the access_token.
-instagram.get('users/self/media/recent').then(data => {
+instagram.get("users/self/media/recent").then(data => {
   console.log(data);
 });
 
 // Get the most recent media published by a user.
-instagram.get('users/:user-id/media/recent').then(data => {
+instagram.get("users/:user-id/media/recent").then(data => {
   console.log(data);
 });
 
 // Get the list of recent media liked by the owner of the access_token.
-instagram.get('users/self/media/liked').then(data => {
+instagram.get("users/self/media/liked").then(data => {
   console.log(data);
 });
 
 // Get a list of users matching the query.
-instagram.get('users/search', { q: 'paris' }).then(data => {
+instagram.get("users/search", { q: "paris" }).then(data => {
   console.log(data);
 });
 
 // Get information about this media.
-instagram.get('media/:media-id').then(data => {
+instagram.get("media/:media-id").then(data => {
   console.log(data);
 });
 
 // Get a list of users who have liked this media.
-instagram.get('media/:media-id/likes').then(data => {
+instagram.get("media/:media-id/likes").then(data => {
   console.log(data);
 });
 
 // Set a like on this media by the currently authenticated user.
-instagram.post('media/:media-id/likes').then(data => {
+instagram.post("media/:media-id/likes").then(data => {
   console.log(data);
 });
 
 // Remove a like on this media by the currently authenticated user.
-instagram.delete('media/:media-id/likes').then(data => {
+instagram.delete("media/:media-id/likes").then(data => {
   console.log(data);
 });
 
 // Get information about a tag object.
-instagram.get('tags/:tag-name').then(data => {
+instagram.get("tags/:tag-name").then(data => {
   console.log(data);
 });
 
 // Get a list of recently tagged media.
-instagram.get('tags/:tag-name/media/recent').then(data => {
+instagram.get("tags/:tag-name/media/recent").then(data => {
   console.log(data);
 });
 
 // Search for tags by name.
-instagram.get('tags/search', { q: 'paris' }).then(data => {
+instagram.get("tags/search", { q: "paris" }).then(data => {
   console.log(data);
 });
 ```
@@ -196,13 +200,13 @@ It is also possible to send the access_token along as a parameter when you call 
 
 ```javascript
 // Get information about current user
-instagram.get('users/self', { access_token: accessToken }, (err, data) => {
+instagram.get("users/self", { access_token: accessToken }, (err, data) => {
   console.log(data);
 });
 
 // Search for tags by name.
 instagram
-  .get('tags/search', { access_token: accessToken, q: 'paris' })
+  .get("tags/search", { access_token: accessToken, q: "paris" })
   .then(data => {
     console.log(data);
   });
