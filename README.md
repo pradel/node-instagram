@@ -8,7 +8,9 @@
 # node-instagram
 
 > ⚠️ The legacy Instagram API is deprecated and will be disabled on June 29, 2020.
+
 > More information https://www.instagram.com/developer.
+
 > You should use the new Instagram Graph API.
 
 Instagram api client for node that supports promises and typescript.
